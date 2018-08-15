@@ -12,12 +12,10 @@ This is a Reddit bot that will return a list of highlight gifs as a reply to any
 ## Usage Examples
 Arguments can be chained together. Here are some examples:
 
-`!patsbot moss 2007 dolphins`
+`!patsbot moss 2007 dolphins` will return all highlights of Randy Moss in the 2007 season against the Dolphins.
 
-Will return all highlights of Randy Moss in the 2007 season against the Dolphins.
+`!patsbot brady week 21` will return all highlights of Tom Brady in any Super Bowl.
 
-`!patsbot brady week 21`
-
-Will return all highlights of Tom Brady in any Super Bowl.
+`!patsbot brady moss 2007 dolphins` will return all highlights that include both Brady AND Moss in the 2007 season against the Dolphins.
 
 
