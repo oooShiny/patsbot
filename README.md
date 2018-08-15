@@ -1,28 +1,23 @@
-# reddit-bot-stream-example
+# PatsBot
 
 ## What is this?
+This is a Reddit bot that will return a list of highlight gifs as a reply to any comment that starts with `!patsbot`.
 
-This repo provides an example of a Reddit bot built in Node.js.
+## Arguments
+1. Players: `!patsbot brady` will return all highlights involving Tom Brady.
+2. Opponents: `!patsbot broncos` will return all highlights involving the Denver Broncos.
+3. Season: `!patsbot 2007` will return all highlights in the 2007 season.
+4. Week: `!patsbot week 1` will return all highlights that happened in week 1.
 
-Specifically, we are looking at a stream of newly posted comments on reddit, and doing something with their contents.
+## Usage Examples
+Arguments can be chained together. Here are some examples:
 
-This is achieved through [Snoowrap](https://www.npmjs.com/package/snoowrap) as a Node.js wrapper for the Reddit API, and [Snoostorm](https://www.npmjs.com/package/snoostorm) as a way to easily access the stream of Reddit comments through Snoowrap.
+`!patsbot moss 2007 dolphins`
 
-## Install
+Will return all highlights of Randy Moss in the 2007 season against the Dolphins.
 
-`npm i`
+`!patsbot brady week 21`
 
-Create `.env` at root with the following variables, specific to your Reddit app: https://www.reddit.com/prefs/apps/
+Will return all highlights of Tom Brady in any Super Bowl.
 
-```
-CLIENT_ID=***
-CLIENT_SECRET=***
-REDDIT_USER=***
-REDDIT_PASS=***
-```
 
-## Usage
-
-Running the bot
-
-`npm start`
