@@ -16,7 +16,7 @@ const client = new Snoostorm(r);
 
 // Configure options for stream: subreddit & results per query
 const streamOpts = {
-    subreddit: 'patriots',
+    subreddit: 'dyj',
     results: 25
 };
 
