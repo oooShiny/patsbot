@@ -29,6 +29,7 @@ comments.on('comment', (comment) => {
         var replytext = '';
         // Format arguments: remove '!patsbot' and change spaces to +
         var gif_args = comment.body.replace('!patsbot ', '');
+        gif_args.replace('\\_', '_');
         console.log(gif_args);
         var gif_api = 'https://patriotsdynasty.info/reddit/patsbot/' + (gif_args.replace(/\s/g, '+'));
         console.log(gif_api);
