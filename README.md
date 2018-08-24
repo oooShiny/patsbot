@@ -9,7 +9,7 @@ PatsBot is a Reddit bot that will return a list of highlight gifs as a reply to 
 
 1. Players: `!patsbot brady` will return all highlights involving Tom Brady.
    * You only need to use the player's last name, and PatsBot will usually figure out who you're talking about.
-   * If you want to use a full name, use an underscore as a separator: `!patsbot kyle_brady`.
+   * If you want to use a full name, use a dash as a separator: `!patsbot kyle-brady`.
 2. Opponents: `!patsbot broncos` will return all highlights where the opponent was the Denver Broncos.
 3. Season: `!patsbot 2007` will return all highlights in the 2007 season.
 4. Week: `!patsbot week 1` will return all highlights that happened in week 1.
