@@ -38,7 +38,7 @@ comments.on('comment', (comment) => {
             .then((resp) => resp.json())
             .then(function(json) {
                 json.forEach(function(obj) { 
-                    replytext += "* [" + obj.title + " (" + obj.season + " Week " + obj.week + ")](https://gfycat.com/" + obj.gfycat + ") \n"; 
+                    replytext += "1. [" + obj.title + " (" + obj.season + " Week " + obj.week + ")](https://gfycat.com/" + obj.gfycat + ") \n"; 
                 });
             })
             .then(function(){
