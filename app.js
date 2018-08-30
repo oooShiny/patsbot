@@ -32,13 +32,13 @@ comments.on('comment', (comment) => {
         gif_args.replace('\\_', '_');
         console.log(gif_args);
         var special_args = {
-            patsbot: 'Hey, stop trying to break me, I have feelings too.',
+            patsbot: 'Hey, stop trying to break me, I have feelings too!',
             belichick: 'belichick',
             buttfumble: "1. [The Butt Fumble](https://gfycat.com/InsidiousDetailedHermitcrab) \n1. [Butt Fumble Replay](https://gfycat.com/PortlySorrowfulAllensbigearedbat)",
         };
         if (gif_args in special_args) {
-            console.log('Custom Response: ' + special_args[gif_args])
             var custom_message = special_args[gif_args];
+            console.log('Custom Response: ' + custom_message);
         }
         else {
             var gif_api = 'https://patriotsdynasty.info/reddit/patsbot/' + (gif_args.replace(/\s/g, '+'));
