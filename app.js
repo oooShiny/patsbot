@@ -60,6 +60,9 @@ comments.on('comment', (comment) => {
                     replytext += "\n I'm a bot! Want to learn more about me? [Click here!](https://patriotsdynasty.info/patsbot-instructions)"
                     comment.reply(replytext);    
                 }
+                else if (custom_message) {
+                    comment.reply(custom_message);
+                }
                 else {
                     comment.reply("Sorry, there's no highlights for those terms.\n I'm a bot! Want to learn more about me? [Click here!](https://patriotsdynasty.info/patsbot-instructions)");
                     console.log("Sorry, there's no highlights for those terms.");
