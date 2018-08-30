@@ -33,9 +33,8 @@ comments.on('comment', (comment) => {
         console.log(gif_args);
         var special_args = {
             patsbot: 'Hey, stop trying to break me, I have feelings too.',
-            belichick: 'belichick'
+            belichick: 'belichick',
             buttfumble: "1. [The Butt Fumble](https://gfycat.com/InsidiousDetailedHermitcrab) \n1. [Butt Fumble Replay](https://gfycat.com/PortlySorrowfulAllensbigearedbat)",
-
         };
         if (gif_args in special_args) {
             console.log('Custom Response: ' + special_args.gif_args)
