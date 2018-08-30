@@ -38,7 +38,8 @@ comments.on('comment', (comment) => {
         };
         if (gif_args in special_args) {
             var custom_message = special_args[gif_args];
-            console.log('Custom Response: ' + custom_message);
+            comment.reply(custom_message);
+            console.log('Custom Response sent: ' + custom_message);
         }
         else {
             var gif_api = 'https://patriotsdynasty.info/reddit/patsbot/' + (gif_args.replace(/\s/g, '+'));
@@ -60,10 +61,7 @@ comments.on('comment', (comment) => {
                     comment.reply(replytext);   
                     console.log('Reply Text: ' + replytext); 
                 }
-                else if (custom_message) {
-                    comment.reply(custom_message);
-                    console.log('Custom Response sent: ' + custom_message);
-                }
+                
                 else {
                     comment.reply("Sorry, there's no highlights for those terms.\n I'm a bot! Want to learn more about me? [Click here!](https://patriotsdynasty.info/patsbot-instructions)");
                     console.log("Sorry, there's no highlights for those terms.");
