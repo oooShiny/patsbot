@@ -37,8 +37,8 @@ comments.on('comment', (comment) => {
             buttfumble: "1. [The Butt Fumble](https://gfycat.com/InsidiousDetailedHermitcrab) \n1. [Butt Fumble Replay](https://gfycat.com/PortlySorrowfulAllensbigearedbat)",
         };
         if (gif_args in special_args) {
-            console.log('Custom Response: ' + special_args.gif_args)
-            var custom_message = special_args.gif_args;
+            console.log('Custom Response: ' + special_args[gif_args])
+            var custom_message = special_args[gif_args];
         }
         else {
             var gif_api = 'https://patriotsdynasty.info/reddit/patsbot/' + (gif_args.replace(/\s/g, '+'));
