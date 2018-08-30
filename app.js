@@ -54,13 +54,15 @@ comments.on('comment', (comment) => {
 
             })
             .then(function(){
-                console.log(replytext);
+                
                 if (replytext) {
                     replytext += "\n I'm a bot! Want to learn more about me? [Click here!](https://patriotsdynasty.info/patsbot-instructions)"
-                    comment.reply(replytext);    
+                    comment.reply(replytext);   
+                    console.log('Reply Text: ' + replytext); 
                 }
                 else if (custom_message) {
                     comment.reply(custom_message);
+                    console.log('Custom Response sent: ' + custom_message);
                 }
                 else {
                     comment.reply("Sorry, there's no highlights for those terms.\n I'm a bot! Want to learn more about me? [Click here!](https://patriotsdynasty.info/patsbot-instructions)");
