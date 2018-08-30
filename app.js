@@ -31,8 +31,20 @@ comments.on('comment', (comment) => {
         var gif_args = comment.body.replace('!patsbot ', '');
         gif_args.replace('\\_', '_');
         console.log(gif_args);
-        var gif_api = 'https://patriotsdynasty.info/reddit/patsbot/' + (gif_args.replace(/\s/g, '+'));
-        console.log(gif_api);
+        var special_args = {
+            patsbot: 'Hey, stop trying to break me, I have feelings too.',
+            belichick: 'belichick'
+            buttfumble: "1. [The Butt Fumble](https://gfycat.com/InsidiousDetailedHermitcrab) \n1. [Butt Fumble Replay](https://gfycat.com/PortlySorrowfulAllensbigearedbat)",
+
+        };
+        if (gif_args in special_args) {
+            console.log('Custom Response: ' + special_args.gif_args)
+            var custom_message = special_args.gif_args;
+        }
+        else {
+            var gif_api = 'https://patriotsdynasty.info/reddit/patsbot/' + (gif_args.replace(/\s/g, '+'));
+            console.log(gif_api);
+        }
         // Get the data and return it as a comment reply.
         fetch(gif_api)
             .then((resp) => resp.json())
@@ -40,14 +52,16 @@ comments.on('comment', (comment) => {
                 json.forEach(function(obj) { 
                     replytext += "1. [" + obj.title + " (" + obj.season + " Week " + obj.week + ")](https://gfycat.com/" + obj.gfycat + ") \n"; 
                 });
+
             })
             .then(function(){
                 console.log(replytext);
                 if (replytext) {
+                    replytext += "\n I'm a bot! Want to learn more about me? [Click here!](https://patriotsdynasty.info/patsbot-instructions)"
                     comment.reply(replytext);    
                 }
                 else {
-                    comment.reply("Sorry, there's no highlights for those terms.");
+                    comment.reply("Sorry, there's no highlights for those terms.\n I'm a bot! Want to learn more about me? [Click here!](https://patriotsdynasty.info/patsbot-instructions)");
                     console.log("Sorry, there's no highlights for those terms.");
                 }
             })
