@@ -46,3 +46,58 @@ Right now we don't have highlights for every game. I've been working on helping 
    * 2004 (AFC Divisional)
    * 2003 (Weeks 9, 11, 14, 16 and all playoffs)
    * 2002 (Weeks 3, 10, 13)​
+
+## For Developers
+
+If you'd like to return Patriots gifs yourself, you'll just need to build a query that hits this endpoint: https://patriotsdynasty.info/reddit/patsbot/. Add the arguments to the end of the url separated by + and it will return a JSON object with a list of gifs and their relevant information.
+
+For example, if you hit https://patriotsdynasty.info/reddit/patsbot/brady+2007+cowboys, the system will respond with the following JSON object:
+```javascript
+[
+   {
+      "id": "292",
+      "gfycat": "RegalBraveKingfisher",
+      "title": "Brady to Moss 6yd TD",
+      "players": "Tom Brady, Randy Moss",
+      "field_opponent": "Dallas Cowboys",
+      "season": "2007",
+      "week": "6"
+   },
+   {
+      "id": "293",
+      "gfycat": "LimitedDeterminedAgama",
+      "title": "Brady to Welker 25yd TD",
+      "players": "Tom Brady, Wes Welker",
+      "field_opponent": "Dallas Cowboys",
+      "season": "2007",
+      "week": "6"
+   },
+   {
+      "id": "294",
+      "gfycat": "ColorlessAmusingEquine",
+      "title": "Brady to Welker 12yd TD",
+      "players": "Tom Brady, Wes Welker",
+      "field_opponent": "Dallas Cowboys",
+      "season": "2007",
+      "week": "6"
+   },
+   {
+      "id": "295",
+      "gfycat": "HelpfulGranularBlesbok",
+      "title": "Brady to (Kyle) Brady 1yd TD",
+      "players": "Tom Brady, Kyle Brady",
+      "field_opponent": "Dallas Cowboys",
+      "season": "2007",
+      "week": "6"
+   },
+   {
+      "id": "296",
+      "gfycat": "KindheartedVengefulFlamingo",
+      "title": "Brady to Stallworth 69yd TD",
+      "players": "Tom Brady, Donte Stallworth",
+      "field_opponent": "Dallas Cowboys",
+      "season": "2007",
+      "week": "6"
+   }
+]
+```
