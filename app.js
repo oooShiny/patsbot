@@ -57,13 +57,14 @@ comments.on('comment', (comment) => {
             .then(function(){
                 
                 if (replytext) {
-                    replytext += "\n I'm a bot! Want to learn more about me? [Click here!](https://patriotsdynasty.info/patsbot-instructions)"
+                    replytext += "\nI'm a bot! Want to learn more about me? [Click here!](https://patriotsdynasty.info/patsbot-instructions)";
+                    replytext += "\nGot a suggestion for the bot or a missing highlight? [Let me know.](https://patriotsdynasty.info/contact/feedback)";
                     comment.reply(replytext);   
                     console.log('Reply Text: ' + replytext); 
                 }
                 
                 else {
-                    comment.reply("Sorry, there's no highlights for those terms.\n I'm a bot! Want to learn more about me? [Click here!](https://patriotsdynasty.info/patsbot-instructions)");
+                    comment.reply("Sorry, there's no highlights for those terms.\n I'm a bot! Want to learn more about me? [Click here!](https://patriotsdynasty.info/patsbot-instructions)\nGot a suggestion for the bot or a missing highlight? [Let me know.](https://patriotsdynasty.info/contact/feedback)");
                     console.log("Sorry, there's no highlights for those terms.");
                 }
             })
