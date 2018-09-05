@@ -57,7 +57,7 @@ comments.on('comment', (comment) => {
             .then(function(){
                 
                 if (replytext) {
-                    replytext += "\nI'm a bot! Want to learn more about me? [Click here!](https://patriotsdynasty.info/patsbot-instructions)";
+                    replytext += "\nI'm a bot! Want to learn more about me? [Click here!](https://patriotsdynasty.info/patsbot-instructions)\n";
                     replytext += "\nGot a suggestion for the bot or a missing highlight? [Let me know.](https://patriotsdynasty.info/contact/feedback)";
                     comment.reply(replytext);   
                     console.log('Reply Text: ' + replytext); 
