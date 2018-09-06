@@ -50,7 +50,13 @@ comments.on('comment', (comment) => {
             .then((resp) => resp.json())
             .then(function(json) {
                 json.forEach(function(obj) { 
-                    replytext += "1. [" + obj.title + " (" + obj.season + " Week " + obj.week + ")](https://gfycat.com/" + obj.gfycat + ") \n"; 
+                    if(obj.streamable == "True") {
+                        replytext += "1. [" + obj.title + " (" + obj.season + " Week " + obj.week + ")](https://streamable.com/" + obj.gfycat + ") \n";
+                    }
+                    else {
+                        replytext += "1. [" + obj.title + " (" + obj.season + " Week " + obj.week + ")](https://gfycat.com/" + obj.gfycat + ") \n";
+                    }
+                    
                 });
 
             })
