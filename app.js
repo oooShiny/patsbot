@@ -50,6 +50,7 @@ comments.on('comment', (comment) => {
             .then((resp) => resp.json())
             .then(function(json) {
                 json.forEach(function(obj) { 
+                    console.log(obj.streamable);
                     if(obj.streamable == "True") {
                         replytext += "1. [" + obj.title + " (" + obj.season + " Week " + obj.week + ")](https://streamable.com/" + obj.gfycat + ") \n";
                     }
