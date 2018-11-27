@@ -13,9 +13,6 @@ const r = new Snoowrap({
     password: process.env.REDDIT_PASS
 });
 const client = new Snoostorm(r);
-/**
- * NFL Gif Bot Code
- */
 
 // Configure options for stream: subreddit & results per query
 const nflStreamOpts = {
@@ -133,7 +130,6 @@ comments.on('comment', (comment) => {
 var submissionStream = client.SubmissionStream(nflStreamOpts);
    
 submissionStream.on("submission", function(post) {
-    // For each comment, 
 if (post.link_flair_text == 'Highlights' || post.title.startsWith('[Highlight]')) {
     console.log(`New submission by ${post.author.name}: ${post.title} | ${post.url}`);
     if (post.title.startsWith('[Highlight]')) {
