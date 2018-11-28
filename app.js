@@ -109,14 +109,14 @@ comments.on('comment', (comment) => {
             .then(function(){
                 
                 if (replytext) {
-                    replytext += "\nI'm a bot! Want to learn more about me? [Click here!](https://patriotsdynasty.info/patsbot-instructions)\n";
-                    replytext += "\nGot a suggestion for the bot or a missing highlight? [Let me know.](https://patriotsdynasty.info/contact/feedback)";
+                    replytext += "\nI'm a bot! Want to learn more about me? [Click here!](https://github.com/oooShiny/nflgifbot)\n";
+                    replytext += "\nGot a suggestion for the bot or a missing highlight? [Let me know.](https://www.reddit.com/message/compose/?to=nflgifbot)";
                     comment.reply(replytext);   
                     console.log('Reply Text: ' + replytext); 
                 }
                 
                 else {
-                    comment.reply("Sorry, I couldn't find any highlights for those terms.\n I'm a bot! Want to learn more about me? [Click here!](https://patriotsdynasty.info/patsbot-instructions)\nGot a suggestion for the bot or a missing highlight? [Let me know.](https://patriotsdynasty.info/contact/feedback)");
+                    comment.reply("Sorry, I couldn't find any highlights for those terms.\n I'm a bot! Want to learn more about me? [Click here!](https://github.com/oooShiny/nflgifbot)\nGot a suggestion for the bot or a missing highlight? [Let me know.](https://www.reddit.com/message/compose/?to=nflgifbot)");
                     console.log("Sorry, there's no highlights for those terms.");
                 }
             })
