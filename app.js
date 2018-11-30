@@ -87,6 +87,7 @@ comments.on('comment', (comment) => {
         console.log(gif_args);
         var special_args = {
             gifbot: 'Hey, stop trying to break me, I have feelings too!',
+            hernandez: 'C\'mon now. Nobody needs that.',
         };
         if (gif_args in special_args) {
             var custom_message = special_args[gif_args];
