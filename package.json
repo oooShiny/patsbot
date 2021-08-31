@@ -5,7 +5,7 @@
   "main": "app.js",
   "dependencies": {
     "dotenv": "^4.0.0",
-    "es6-promise": "^4.2.4",
+    "es6-promise": "^4.2.8",
     "isomorphic-fetch": "^2.2.1",
     "node-fetch": "^2.2.0",
     "snoostorm": "^0.0.5",
