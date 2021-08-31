@@ -10,10 +10,15 @@
     "node-fetch": "^2.2.0",
     "snoostorm": "^0.0.5",
     "snoowrap": "^1.23.0"
+    "es6-promise": "^4.2.8",
+    "isomorphic-fetch": "^3.0.0",
+    "node-fetch": "^2.6.1",
+    "snoostorm": "^1.5.2",
+    "snoowrap": "^1.23.0"
   },
   "devDependencies": {
     "eslint": "^4.19.1",
-    "eslint-config-google": "^0.8.1"
+    "eslint-config-google": "^0.9.1"
   },
   "scripts": {
     "start": "node app"
