@@ -4,6 +4,7 @@
   "description": "An example of a Reddit bot that looks at new Reddit comments",
   "main": "app.js",
   "dependencies": {
+    "data-store": "^4.0.3",
     "dotenv": "^10.0.0",
     "es6-promise": "^4.2.8",
     "isomorphic-fetch": "^3.0.0",
