@@ -7,12 +7,11 @@
     "dotenv": "^4.0.0",
     "es6-promise": "^4.2.4",
     "isomorphic-fetch": "^2.2.1",
-    "node-fetch": "^2.2.0",
     "es6-promise": "^4.2.8",
     "isomorphic-fetch": "^3.0.0",
     "node-fetch": "^2.6.1",
     "snoostorm": "^1.5.2",
-    "snoowrap": "^1.15.2"
+    "snoowrap": "^1.23.0"
   },
   "devDependencies": {
     "eslint": "^4.19.1",
