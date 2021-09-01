@@ -1,7 +1,7 @@
 {
-  "name": "reddit-bot-example-node",
-  "version": "0.0.0",
-  "description": "An example of a Reddit bot that looks at new Reddit comments",
+  "name": "patsbot",
+  "version": "0.0.1",
+  "description": "A bot that grabs Pats highlights and saves them for game threads.",
   "main": "app.js",
   "dependencies": {
     "data-store": "^4.0.3",
