@@ -22,7 +22,7 @@ const nflStreamOpts = {
 };
 
 // Create a Snoostorm CommentStream with the specified options
-const comments = new CommentStream(nflStreamOpts); 
+const comments = new CommentStream(r, nflStreamOpts); 
 
 // Look for Timnog gif link comments.
 comments.on('comment', (comment) => {
