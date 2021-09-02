@@ -8,7 +8,7 @@ const store = require('data-store')({ path: process.cwd() + '/gifdata.json' });
 
 // Build Snoowrap and Snoostorm clients
 const r = new Snoowrap({
-    userAgent: 'reddit-bot-example-node',
+    userAgent: 'patsbot',
     clientId: process.env.CLIENT_ID,
     clientSecret: process.env.CLIENT_SECRET,
     username: process.env.REDDIT_USER,
@@ -18,26 +18,37 @@ const r = new Snoowrap({
 // Configure options for stream: subreddit & results per query
 const nflStreamOpts = {
     subreddit: 'nflgifbot+dyj',
-    results: 40
+    limit: 25,
+    pollTime: 2000,
 };
 
 // Create a Snoostorm CommentStream with the specified options
-const comments = new CommentStream(r, nflStreamOpts); 
+const stream = new CommentStream(r, nflStreamOpts); 
 
 // Look for Timnog gif link comments.
-comments.on('comment', (comment) => {
+stream.on('item', (comment) => {
     // Get comments from gif posters that have a link in 'em.
 	if ((comment.author.name == 'arbrown83' || comment.author.name == 'timnog') && comment.body_html.includes('href')) {
         // If the link is from a gif site, save it.
         if (comment.body_html.includes('gfycat') || comment.body_html.includes('streamable')) {
-            console.log(comment.body);
             var today = new Date();
             var dd = String(today.getDate()).padStart(2, '0');
             var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
             var yyyy = today.getFullYear();
             today = yyyy + mm + dd;
             // Save to JSON file.
-            store.union(today, comment.body);
+            var lines = comment.body.split(/\r?\n/);
+            if (lines.length > 1) {
+                for (var i = 0, l = lines.length; i < l; i++) {
+                    if (lines[i].length > 0 && /^-?\d+$/.test(lines[i].charAt(0))) {
+                        store.union(today, lines[i]);
+                    }
+                }
+            }
+            else {
+                store.union(today, comment.body);
+            }
+            
             console.log(store)
         }
     }
