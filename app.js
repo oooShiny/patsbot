@@ -1,7 +1,7 @@
 require('dotenv').config();
 
 const Snoowrap = require('snoowrap');
-const Snoostorm = require('snoostorm');
+const { CommentStream } = require("snoostorm");
 
 // Create a place to store the content.
 const store = require('data-store')({ path: process.cwd() + '/gifdata.json' });
@@ -14,7 +14,6 @@ const r = new Snoowrap({
     username: process.env.REDDIT_USER,
     password: process.env.REDDIT_PASS
 });
-const client = new Snoostorm(r);
 
 // Configure options for stream: subreddit & results per query
 const nflStreamOpts = {
@@ -23,7 +22,7 @@ const nflStreamOpts = {
 };
 
 // Create a Snoostorm CommentStream with the specified options
-const comments = client.CommentStream(nflStreamOpts); // eslint-disable-line
+const comments = new CommentStream(nflStreamOpts); 
 
 // Look for Timnog gif link comments.
 comments.on('comment', (comment) => {
