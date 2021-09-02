@@ -42,20 +42,3 @@ comments.on('comment', (comment) => {
         }
     }
 });
-
-// Listen for [Highlight] submissions in the /r/nfl subreddit.
-var submissionStream = client.SubmissionStream(nflStreamOpts);
-   
-submissionStream.on("submission", function(post) {
-if (post.link_flair_text == 'Highlights' || post.title.startsWith('[Highlight]')) {
-    console.log(`New submission by ${post.author.name}: ${post.title} | ${post.url}`);
-    if (post.title.startsWith('[Highlight]')) {
-        var title = post.title.slice(11);
-    }
-    else {
-        var title = post.title;
-    }
-    console.log(post_gif);
-    fetch(post_gif);
-}
-});
