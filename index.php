@@ -148,7 +148,7 @@ foreach ($pats_games as $game) {
     at 
     [<?php print $home_team; ?>](<?php print get_subreddit_link($home_team); ?>#home) (<?php print $game['home']['record']; ?>)
 
-    <br><br>
+    <br>
 
     <!-- Stadium & Location -->
     <?php print $game['venue']['fullName']; ?> in <?php print $game['venue']['address']['city']; ?>, <?php print $game['venue']['address']['state']; ?>
@@ -157,7 +157,8 @@ foreach ($pats_games as $game) {
 
     <?php if ($game_status == 'Final'): ?>
         <!-- Game Score -->
-        <br>
+        ## Box Score 
+        <br><br>
          &nbsp; | 1 | 2 | 3 | 4 | Final <br>
         ---|---|---|---|---|--- <br>
         <?php print $away_team; ?> | <?php foreach ($game['away']['box'] as $q) { print $q['value'] . ' | '; } print $game['away']['score']; ?> 
