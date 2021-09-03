@@ -96,6 +96,7 @@ $hl_array = json_decode($file, true);
 $highlights = [];
 foreach ($hl_array as $date => $hls) {
     if ($date == $today) {
+        asort($hls);
         foreach ($hls as $hl) {
             $highlights[] = preg_replace('#^\d+#', '', $hl);
         }
@@ -200,7 +201,7 @@ foreach ($pats_games as $game) {
     Try the [Tab Auto Refresh](https://mybrowseraddon.com/tab-auto-refresh.html) browser extension to auto-refresh this tab. |<br>
     Use [reddit-stream.com](https://reddit-stream.com/) to get an autorefreshing version of this page. |<br>
     
-    <pre><?php var_dump($highlights); ?></pre>
+    <pre><?php var_dump($hls); ?></pre>
 
 <?php } // endforeach; ?>
 
