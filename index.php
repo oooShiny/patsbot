@@ -90,7 +90,7 @@ foreach ($games['events'] as $game) {
     }
 }
 // Get highlights from JSON file.
-$today = date('dmY');
+$today = date('Ymd');
 $file = file_get_contents('gifdata.json');
 $hl_array = json_decode($file, true);
 $highlights = [];
