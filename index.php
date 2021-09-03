@@ -18,17 +18,17 @@
 
 <?php
 
-$url = 'http://site.api.espn.com/apis/site/v2/sports/football/nfl/scoreboard';
+$espn_url = 'http://site.api.espn.com/apis/site/v2/sports/football/nfl/scoreboard';
 $args['dates'] = $_REQUEST['season'] ?? '';
 $args['seasontype'] = $_REQUEST['seasontype'] ?? '';
 $args['week'] = $_REQUEST['week'] ?? '';
 if (!empty($args['dates']) || !empty($args['seasontype']) || !empty($args['week'])) {
-    $url .= '?';
+    $espn_url .= '?';
     foreach($args as $name => $value) {
-        $url .= $name . '=' . $value . '&';
+        $espn_url .= $name . '=' . $value . '&';
     }
 }
-$json = file_get_contents($url);
+$json = file_get_contents($espn_url);
 $games = json_decode($json, true);
 $pats_games = [];
 $season = $games['season']['year'];
@@ -89,6 +89,10 @@ foreach ($games['events'] as $game) {
         $pats_games = $thisgame;
     }
 }
+// Get highlights from JSON file.
+$file = file_get_contents('gifdata.json');
+$highlights = json_decode($file, true);
+
 
 foreach ($pats_games as $game) {
     $game_status = $game['status']['type']['detail'];
