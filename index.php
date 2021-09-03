@@ -148,7 +148,12 @@ foreach ($pats_games as $game) {
     at 
     [<?php print $home_team; ?>](<?php print get_subreddit_link($home_team); ?>#home) (<?php print $game['home']['record']; ?>)
 
-    <br>
+    <br><br>
+
+    <!-- Stadium & Location -->
+    <?php print $game['venue']['fullName']; ?> in <?php print $game['venue']['address']['city']; ?>, <?php print $game['venue']['address']['state']; ?>
+    
+    <br><br>
 
     <?php if ($game_status == 'Final'): ?>
         <!-- Game Score -->
@@ -161,19 +166,11 @@ foreach ($pats_games as $game) {
         
         <br><br>
 
-
-
     <?php else: ?>
         <!-- Game Date  -->
         ## <?php print $game_status; ?>
+        <br><br>
     <?php endif; ?>
-
-    <br>
-
-    <!-- Stadium & Location -->
-    <?php print $game['venue']['fullName']; ?> in <?php print $game['venue']['address']['city']; ?>, <?php print $game['venue']['address']['state']; ?>
-    
-    <br><br>
 
     <!-- Odds -->
     <?php if ($game_status !== 'Final'): ?>
