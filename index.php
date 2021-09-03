@@ -94,6 +94,7 @@ $file = file_get_contents('gifdata.json');
 $highlights = json_decode($file, true);
 
 
+
 foreach ($pats_games as $game) {
     $game_status = $game['status']['type']['detail'];
     $home_team = $game['home']['display'];
@@ -181,7 +182,7 @@ foreach ($pats_games as $game) {
     Try the [Tab Auto Refresh](https://mybrowseraddon.com/tab-auto-refresh.html) browser extension to auto-refresh this tab. |<br>
     Use [reddit-stream.com](https://reddit-stream.com/) to get an autorefreshing version of this page. |<br>
     
-    <pre><?php //var_dump($game); ?></pre>
+    <pre><?php var_dump($highlights); ?></pre>
 
 <?php } // endforeach; ?>
 
