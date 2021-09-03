@@ -180,6 +180,15 @@ foreach ($pats_games as $game) {
         <br><br>
     <?php endif; ?>
 
+    <!-- Highlights -->
+    <?php if (!empty($highlights)) {
+        foreach ($highlights as $h) {
+            print '1. ' . $h . '<br>';
+        }
+        print '<br><br>';
+    } ?>
+
+
     Game Thread Notes |<br>
     :--- |<br>
     Discuss whatever you wish. You can trash talk, but keep it civil. |<br>
