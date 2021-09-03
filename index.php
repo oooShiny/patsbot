@@ -96,11 +96,13 @@ $hl_array = json_decode($file, true);
 $highlights = [];
 foreach ($hl_array as $date => $hls) {
     if ($date == $today) {
-        $highlights = $hls;
+        foreach ($hls as $hl) {
+            $highlights[] = preg_replace('#^\d+#', '', $hl);
+        }
     }
 }
 
-
+// Print out game info.
 foreach ($pats_games as $game) {
     $game_status = $game['status']['type']['detail'];
     $home_team = $game['home']['display'];
@@ -182,6 +184,7 @@ foreach ($pats_games as $game) {
 
     <!-- Highlights -->
     <?php if (!empty($highlights)) {
+        print '## Highlights <br>';
         foreach ($highlights as $h) {
             print '1. ' . $h . '<br>';
         }
