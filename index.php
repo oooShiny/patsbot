@@ -201,7 +201,7 @@ foreach ($pats_games as $game) {
     Try the [Tab Auto Refresh](https://mybrowseraddon.com/tab-auto-refresh.html) browser extension to auto-refresh this tab. |<br>
     Use [reddit-stream.com](https://reddit-stream.com/) to get an autorefreshing version of this page. |<br>
     
-    <pre><?php var_dump($hls); ?></pre>
+    <pre><?php //var_dump($hls); ?></pre>
 
 <?php } // endforeach; ?>
 
