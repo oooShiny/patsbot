@@ -131,7 +131,9 @@ foreach ($pats_games as $game) {
     <?php print $away_team; ?> (<?php print $game['away']['record']; ?>)  
     @ 
     <?php print $home_team; ?> (<?php print $game['home']['record']; ?>)
-    [kickoff <?php print $game['time']; ?>]
+    <?php if ($game_status != 'Final'): ?>
+        [kickoff <?php print $game['time']; ?>]
+    <?php endif; ?>
 </h2>
 
     <!-- Season & Week -->
