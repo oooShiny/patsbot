@@ -17,7 +17,7 @@ const r = new Snoowrap({
 
 // Configure options for stream: subreddit & results per query
 const nflStreamOpts = {
-    subreddit: 'nflgifbot+dyj',
+    subreddit: 'nflgifbot+dyj+patriots',
     limit: 25,
     pollTime: 2000,
 };
