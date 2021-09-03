@@ -185,7 +185,7 @@ foreach ($pats_games as $game) {
 
     <!-- Highlights -->
     <?php if (!empty($highlights)) {
-        print '## Highlights <br>';
+        print '## Highlights <br> Courtesy of u/timnog';
         foreach ($highlights as $h) {
             print '1. ' . $h . '<br>';
         }
