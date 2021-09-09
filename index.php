@@ -14,6 +14,7 @@
             <?php endfor; ?>
         </select>
     <input type="submit" value="Submit">
+    <input type="reset" value="Reset">
 </form>
 
 <?php
