@@ -106,7 +106,7 @@ $hl_array = json_decode($file, true);
 $highlights = [];
 foreach ($hl_array as $date => $hls) {
     if ($date == $today) {
-        asort($hls);
+        // asort($hls);
         foreach ($hls as $hl) {
             $highlights[] = preg_replace('#^\d+#', '', $hl);
         }
