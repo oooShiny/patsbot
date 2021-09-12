@@ -47,7 +47,16 @@ foreach ($games['events'] as $game) {
      **/
     $game_type = $game['season']['type'];
 
-    $weather = $game['weather']['highTemperature'] . '°, ' . $game['weather']['displayValue'];
+    if (isset($game['weather']['highTemperature'])) {
+        $temp = $game['weather']['highTemperature'] . '°, ';
+    }
+    elseif (isset($game['weather']['temperature'])) {
+        $temp = $game['weather']['temperature'] . '°, ';
+    }
+    else {
+        $temp = '';
+    }
+    $weather = $temp . $game['weather']['displayValue'];
     $time = explode(' - ', $game['status']['type']['shortDetail']);
     // Get the general game details.
     $thisgame[$game['id']] = [
