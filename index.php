@@ -257,7 +257,10 @@ function post_to_reddit($post_title, $post) {
         foreach ($value as $v) {
             if (is_array($v)) {
                 foreach ($v as $item)  {
-                    print $item. '<hr>';
+                    if (substr('reddit.com', $item)) {
+                        $url = parse_url($item);
+                        var_dump($url);
+                    }
                 }
             }
         }
