@@ -238,7 +238,7 @@ function post_to_reddit($post_title, $post) {
         'sr' => 'nflgifbot',
         'kind' => 'self',
         'text' => $post,
-        'sendreplies' => FALSE
+        'sendreplies' => 'false'
     ];
 
     $response = do_curl('submit', 'POST', $post_data, $auth);
@@ -261,18 +261,20 @@ function post_to_reddit($post_title, $post) {
     }
 
     $sticky_data = [
+        'api_type' => 'json',
         'id' => $post_id,
         'state' => TRUE,
     ];
-    $sticky_response = do_curl('set_subreddit_sticky', 'POST', $sticky_data, $auth);
+    $sticky_response = do_curl('set_subreddit_sticky', 'POST', $sticky_data, $auth, TRUE);
     
     var_dump($sticky_response);
 
     $sort_data = [
+        'api_type' => 'json',
         'id' => $post_id,
         'sort' => 'new',
     ];
-    $sort_response = do_curl('set_suggested_sort', 'POST', $sort_data, $auth);
+    $sort_response = do_curl('set_suggested_sort', 'POST', $sort_data, $auth, TRUE);
 }
 
 /**
@@ -315,7 +317,7 @@ function get_params() {
     return $params;
 }
 
-function do_curl($action, $method, $params, $auth) {
+function do_curl($action, $method, $params, $auth, $json = FALSE) {
     $ch = curl_init('https://oauth.reddit.com/api/' . $action);
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
     curl_setopt($ch, CURLOPT_USERAGENT, 'PatsBot by /u/' . $username);
@@ -323,7 +325,9 @@ function do_curl($action, $method, $params, $auth) {
     curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'POST');
     curl_setopt($ch, CURLOPT_POSTFIELDS, $params);
     curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, FALSE);
-
+    if ($json) {
+        curl_setopt($ch, CURLOPT_HTTPHEADER, 'Content-Type: application/json');
+    }
     // curl response from our post call
     $response_raw = curl_exec($ch);
     $response = json_decode($response_raw, TRUE);
