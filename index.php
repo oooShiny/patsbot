@@ -265,6 +265,7 @@ function post_to_reddit($post_title, $post) {
         'id' => $post_id,
         'state' => TRUE,
     ];
+    $auth = reddit_auth($reddit_info);
     $sticky_response = do_curl('set_subreddit_sticky', 'POST', $sticky_data, $auth, TRUE);
     var_dump($sticky_response);
     print '<hr>';
@@ -274,6 +275,7 @@ function post_to_reddit($post_title, $post) {
         'id' => $post_id,
         'sort' => 'new',
     ];
+    $auth = reddit_auth($reddit_info);
     $sort_response = do_curl('set_suggested_sort', 'POST', $sort_data, $auth, TRUE);
     var_dump($sort_response);
 }
