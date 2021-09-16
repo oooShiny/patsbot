@@ -257,7 +257,7 @@ function post_to_reddit($post_title, $post) {
         foreach ($value as $v) {
             if (is_array($v)) {
                 foreach ($v as $item)  {
-                    if (substr('reddit.com', $item)) {
+                    if (strpos($item, 'reddit.com') !== FALSE) {
                         $url = parse_url($item);
                         var_dump($url);
                     }
