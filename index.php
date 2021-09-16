@@ -219,7 +219,7 @@ print nl2br($post);
 </form>
 
 <?php
-if ($_POST['submit'] && isset($_POST['test_post'])) {
+if (isset($_REQUEST['test_post'])) {
     post_to_reddit($post_title, $post);
 }
 /**
