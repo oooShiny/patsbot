@@ -260,6 +260,7 @@ function post_to_reddit($post_title, $post) {
     }
 
     $sticky_data = [
+        'api_type' => 'json',
         'id' => $post_id,
         'state' => TRUE,
         'num' => 1
