@@ -332,9 +332,15 @@ function do_curl($action, $method, $params, $auth, $json = FALSE) {
     }
     // curl response from our post call
     $response_raw = curl_exec($ch);
+    $err = curl_error($ch);
     $response = json_decode($response_raw, TRUE);
     curl_close($ch);
-    return $response;
+    if ($err) {
+        return $err;
+    }
+    else {
+        return $response;
+    }
 }
 
 /**
