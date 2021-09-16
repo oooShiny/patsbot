@@ -254,8 +254,13 @@ function post_to_reddit($post_title, $post) {
     curl_close($ch);
 
     foreach ($response['jquery'] as $key => $value) {
-        print 'Key: ' . $key . '<br>';
-        print 'Value: <pre>' . print_r($value) . '</pre><hr>';
+        foreach ($value as $v) {
+            if (is_array($v)) {
+                foreach ($v as $item)  {
+                    print $item. '<hr>';
+                }
+            }
+        }
     }
 }
 
