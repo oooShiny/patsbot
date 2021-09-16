@@ -211,14 +211,62 @@ print '<h2>' . $post_title . '</h2>';
 
 print nl2br($post);
 
+post_to_reddit($post_title, $post);
+
 
 
 /**
  * Post the message to Reddit.
  */
-function post_to_reddit($message) {
-    $params = get_params();
+function post_to_reddit($post_title, $post) {
+    $reddit_info = get_params();
+    $auth = reddit_auth($reddit_info);
 
+    $post_data = [
+        'title' => $post_title,
+        'sr' => 'nflgifbot',
+        'kind' => 'self',
+        'text' => $post
+    ];
+
+    $ch = curl_init('https://oauth.reddit.com/api/submit');
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    curl_setopt($ch, CURLOPT_USERAGENT, 'PatsBot by /u/' . $username);
+    curl_setopt($ch, CURLOPT_HTTPHEADER, ["Authorization: " . $auth['token_type'] . " " . $auth['access_token']]);
+    curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'POST');
+    curl_setopt($ch, CURLOPT_POSTFIELDS, $post_data);
+    curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, FALSE);
+
+    // curl response from our post call
+    $response_raw = curl_exec($ch);
+    $response = json_decode($response_raw);
+    curl_close($ch);
+
+    var_dump($response);
+
+}
+
+function reddit_auth($reddit_info) {
+    // Post paramaters.
+    $params = array(
+        'grant_type' => 'password',
+        'username' => $reddit_info['REDDIT_USER'],
+        'password' => $reddit_info['REDDIT_PASS']
+    );
+
+    // curl settings and call to reddit
+    $ch = curl_init( 'https://www.reddit.com/api/v1/access_token' );
+    curl_setopt($ch, CURLOPT_USERPWD, $reddit_info['CLIENT_ID'] . ':' . $reddit_info['CLIENT_SECRET']);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'POST');
+    curl_setopt($ch, CURLOPT_POSTFIELDS, $params);
+    curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, FALSE);
+
+    // curl response from reddit
+    $response_raw = curl_exec($ch);
+    $response = json_decode($response_raw, TRUE);
+    curl_close($ch);
+    return $response;
 }
 
 function get_params() {
