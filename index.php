@@ -14,6 +14,7 @@
             <?php endfor; ?>
         </select>
     <input type="submit" value="Submit">
+    <a href="/">Reset</a>
 </form>
 
 <?php
@@ -46,7 +47,16 @@ foreach ($games['events'] as $game) {
      **/
     $game_type = $game['season']['type'];
 
-    $weather = $game['weather']['temperature'] . '°, ' . $game['weather']['displayValue'];
+    if (isset($game['weather']['highTemperature'])) {
+        $temp = $game['weather']['highTemperature'] . '°, ';
+    }
+    elseif (isset($game['weather']['temperature'])) {
+        $temp = $game['weather']['temperature'] . '°, ';
+    }
+    else {
+        $temp = '';
+    }
+    $weather = $temp . $game['weather']['displayValue'];
     $time = explode(' - ', $game['status']['type']['shortDetail']);
     // Get the general game details.
     $thisgame[$game['id']] = [
@@ -96,7 +106,7 @@ $hl_array = json_decode($file, true);
 $highlights = [];
 foreach ($hl_array as $date => $hls) {
     if ($date == $today) {
-        asort($hls);
+        // asort($hls);
         foreach ($hls as $hl) {
             $highlights[] = preg_replace('#^\d+#', '', $hl);
         }
