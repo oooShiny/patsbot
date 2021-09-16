@@ -211,6 +211,9 @@ print '<h2>' . $post_title . '</h2>';
 
 print nl2br($post);
 
+$file = file_get_contents('.env');
+var_dump($file);
+
 
 /**
  * Post the message to Reddit.
