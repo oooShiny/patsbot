@@ -250,7 +250,7 @@ function post_to_reddit($post_title, $post) {
 
     // curl response from our post call
     $response_raw = curl_exec($ch);
-    $response = json_decode($response_raw);
+    $response = json_decode($response_raw, TRUE);
     curl_close($ch);
 
     print '<pre>' . var_dump($response) . '</pre>';
