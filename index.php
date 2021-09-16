@@ -212,7 +212,7 @@ print '<h2>' . $post_title . '</h2>';
 print nl2br($post);
 
 $file = file_get_contents('.env');
-    $array = explode(' ', $file);
+    $array = explode("\n", $file);
     var_dump($array);
 var_dump(get_params());
 
@@ -227,7 +227,7 @@ function post_to_reddit($message) {
 
 function get_params() {
     $file = file_get_contents('.env');
-    $array = explode(' ', $file);
+    $array = explode("\n", $file);
     var_dump($array);
     $params = [];
     foreach ($array as $param) {
