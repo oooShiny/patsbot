@@ -211,19 +211,27 @@ print '<h2>' . $post_title . '</h2>';
 
 print nl2br($post);
 
-$file = file_get_contents('.env');
-var_dump($file);
+var_dump(get_params);
 
 
 /**
  * Post the message to Reddit.
  */
 function post_to_reddit($message) {
-    $file = file_get_contents('.env');
-    $params = json_decode($file, true);
+
 
 }
 
+function get_params() {
+    $file = file_get_contents('.env');
+    $array = explode(' ', $file);
+    $params = [];
+    foreach ($array as $param) {
+        $p = explode('=', $param);
+        $params[$p[0]] = $p[1];
+    }
+    return $params;
+}
 /**
  * Get team subreddit from team name.
  */
