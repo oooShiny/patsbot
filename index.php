@@ -140,10 +140,10 @@ foreach ($pats_games as $game) {
 
     $post_title .= $title;
     $post_title .= $away_team . '(' . $game['away']['record'] . ')';  
-    $post_title .= '@'; 
+    $post_title .= ' @ '; 
     $post_title .= $home_team . '(' . $game['home']['record'] . ')'; 
      if ($game_status != 'Final') {
-        $post_title .= '[kickoff ' . $game['time'] . ']';
+        $post_title .= ' [kickoff ' . $game['time'] . ']';
     }
 
     // Season & Week
@@ -156,7 +156,7 @@ foreach ($pats_games as $game) {
     $post .= "\n";
 
     // Stadium & Location
-    $post .= $game['venue']['fullName'] . 'in' . $game['venue']['address']['city'] . ',' . $game['venue']['address']['state'];
+    $post .= $game['venue']['fullName'] . ' in ' . $game['venue']['address']['city'] . ',' . $game['venue']['address']['state'];
     $post .= "\n\n";
 
     if ($game_status == 'Final') {
