@@ -211,7 +211,7 @@ print '<h2>' . $post_title . '</h2>';
 
 print nl2br($post);
 
-var_dump(get_params);
+var_dump(get_params());
 
 
 /**
