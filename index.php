@@ -211,17 +211,13 @@ print '<h2>' . $post_title . '</h2>';
 
 print nl2br($post);
 
-$file = file_get_contents('.env');
-    $array = explode("\n", $file);
-    var_dump($array);
-var_dump(get_params());
 
 
 /**
  * Post the message to Reddit.
  */
 function post_to_reddit($message) {
-
+    $params = get_params();
 
 }
 
