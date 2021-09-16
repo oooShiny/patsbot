@@ -240,19 +240,10 @@ function post_to_reddit($post_title, $post) {
         'text' => $post
     ];
 
-    $ch = curl_init('https://oauth.reddit.com/api/submit');
-    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-    curl_setopt($ch, CURLOPT_USERAGENT, 'PatsBot by /u/' . $username);
-    curl_setopt($ch, CURLOPT_HTTPHEADER, ["Authorization: " . $auth['token_type'] . " " . $auth['access_token']]);
-    curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'POST');
-    curl_setopt($ch, CURLOPT_POSTFIELDS, $post_data);
-    curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, FALSE);
+    $response = do_curl('submit', 'POST', $post_data, $auth);
 
-    // curl response from our post call
-    $response_raw = curl_exec($ch);
-    $response = json_decode($response_raw, TRUE);
-    curl_close($ch);
-
+    // Get new post_id from response.
+    $post_id = '';
     foreach ($response['jquery'] as $key => $value) {
         foreach ($value as $v) {
             if (is_array($v)) {
@@ -260,13 +251,23 @@ function post_to_reddit($post_title, $post) {
                     if (strpos($item, 'reddit.com') !== FALSE) {
                         $url = parse_url($item);
                         $path = explode('/', $url['path']);
-                        var_dump($url);
-                        print 'Post ID: ' . $path[3];
+                        $post_id = $path[4];
+                        var_dump($path);
+                        print 'Post ID: ' . $post_id;
                     }
                 }
             }
         }
     }
+
+    $sticky_data = [
+        'id' => $post_id,
+        'state' => TRUE,
+        'num' => 1
+    ];
+    $sticky_response = do_curl('set_subreddit_sticky', 'POST', $sticky_data, $auth);
+    
+    var_dump($sticky_response);
 }
 
 /**
@@ -308,6 +309,23 @@ function get_params() {
     }
     return $params;
 }
+
+function do_curl($action, $method, $params, $auth) {
+    $ch = curl_init('https://oauth.reddit.com/api/' . $action);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    curl_setopt($ch, CURLOPT_USERAGENT, 'PatsBot by /u/' . $username);
+    curl_setopt($ch, CURLOPT_HTTPHEADER, ["Authorization: " . $auth['token_type'] . " " . $auth['access_token']]);
+    curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'POST');
+    curl_setopt($ch, CURLOPT_POSTFIELDS, $params);
+    curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, FALSE);
+
+    // curl response from our post call
+    $response_raw = curl_exec($ch);
+    $response = json_decode($response_raw, TRUE);
+    curl_close($ch);
+    return $response;
+}
+
 /**
  * Get team subreddit from team name.
  */
