@@ -211,11 +211,17 @@ foreach ($pats_games as $game) {
 print '<h2>' . $post_title . '</h2>';
 
 print nl2br($post);
+?>
 
-// post_to_reddit($post_title, $post);
+<form>
+    <input type="submit" value="Test Post">
+    <input type="hidden" name="test_post">
+</form>
 
-
-
+<?php
+if ($_POST['submit'] && isset($_POST['test_post'])) {
+    post_to_reddit($post_title, $post);
+}
 /**
  * Post the message to Reddit.
  */
@@ -247,6 +253,9 @@ function post_to_reddit($post_title, $post) {
 
 }
 
+/**
+ * Authenticate with Reddit.
+ */
 function reddit_auth($reddit_info) {
     // Post paramaters.
     $params = array(
@@ -270,10 +279,12 @@ function reddit_auth($reddit_info) {
     return $response;
 }
 
+/**
+ * Get Reddit params from the .env file.
+ */ 
 function get_params() {
     $file = file_get_contents('.env');
     $array = explode("\n", $file);
-    var_dump($array);
     $params = [];
     foreach ($array as $param) {
         $p = explode('=', $param);
