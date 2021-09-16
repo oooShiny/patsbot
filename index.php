@@ -123,92 +123,96 @@ foreach ($pats_games as $game) {
         $title = 'Official Game Day Thread: ';
     }
 
-?>
+    // Build Post.
+    $post_title = '';
+    $post = '';
+    // Post Title
 
- <!-- Post Title -->
- <h2>
-    <?php print $title; ?> 
-    <?php print $away_team; ?> (<?php print $game['away']['record']; ?>)  
-    @ 
-    <?php print $home_team; ?> (<?php print $game['home']['record']; ?>)
-    <?php if ($game_status != 'Final'): ?>
-        [kickoff <?php print $game['time']; ?>]
-    <?php endif; ?>
-</h2>
+    $post_title .= $title;
+    $post_title .= $away_team . '(' . $game['away']['record'] . ')';  
+    $post_title .= '@'; 
+    $post_title .= $home_team . '(' . $game['home']['record'] . ')'; 
+     if ($game_status != 'Final') {
+        $post_title .= '[kickoff ' . $game['time'] . ']';
+    }
 
-    <!-- Season & Week -->
-    # <?php print $season_week; ?>
-    
-    <br>
-    ---
-    <br>
+    // Season & Week
+    $post .= '#' . $season_week . "\n --- \n";
 
-    <!-- Teams -->
-    # [<?php print $away_team; ?>](<?php print get_subreddit_link($away_team); ?>#away) (<?php print $game['away']['record']; ?>)  
-    at 
-    [<?php print $home_team; ?>](<?php print get_subreddit_link($home_team); ?>#home) (<?php print $game['home']['record']; ?>)
+    // Teams
+    $post .= '# [' . $away_team . '](' . get_subreddit_link($away_team) . '#away) (' . $game['away']['record'] . ')';  
+    $post .= ' at ';
+    $post .= '[' . $home_team . '](' . get_subreddit_link($home_team) . '#home) (' . $game['home']['record'] . ')';  
+    $post .= "\n";
 
-    <br>
+    // Stadium & Location
+    $post .= $game['venue']['fullName'] . 'in' . $game['venue']['address']['city'] . ',' . $game['venue']['address']['state'];
+    $post .= "\n\n";
 
-    <!-- Stadium & Location -->
-    <?php print $game['venue']['fullName']; ?> in <?php print $game['venue']['address']['city']; ?>, <?php print $game['venue']['address']['state']; ?>
-    
-    <br><br>
+    if ($game_status == 'Final') {
+        // Game Score
+        $post .= '## Box Score';
+        $post .= "\n\n";
+        $post .= ' | 1 | 2 | 3 | 4 | Final' . "\n";
+        $post .= '---|---|---|---|---|---' . "\n";
+        $post .= $away_team . ' | '; foreach ($game['away']['box'] as $q) { $post .= $q['value'] . ' | '; } $post .= $game['away']['score'];  
+        $post .= "\n";
+        $post .= $home_team . ' | '; foreach ($game['home']['box'] as $q) { $post .= $q['value'] . ' | '; } $post .= $game['home']['score'];
+        $post .= "\n\n";
+    } 
+    else {
+        // Game Date
+        $post .= '## ' . $game_status;
+        $post .= "\n\n";
+    }
 
-    <?php if ($game_status == 'Final'): ?>
-        <!-- Game Score -->
-        ## Box Score 
-        <br><br>
-         &nbsp; | 1 | 2 | 3 | 4 | Final <br>
-        ---|---|---|---|---|--- <br>
-        <?php print $away_team; ?> | <?php foreach ($game['away']['box'] as $q) { print $q['value'] . ' | '; } print $game['away']['score']; ?> 
-        <br>
-        <?php print $home_team; ?> | <?php foreach ($game['home']['box'] as $q) { print $q['value'] . ' | '; } print $game['home']['score']; ?> 
-        
-        <br><br>
+    // Odds
+    if ($game_status !== 'Final') { 
+        $post .= '* **Favorite:** ' . $game['favorite'];
+        $post .= "\n";
+        $post .= '* **Over/Under:** ' . $game['ou'];
+        $post .= "\n";
+        $post .= '* **Weather:** ' . $game['weather'];
+        $post .= "\n\n";
+    }
 
-    <?php else: ?>
-        <!-- Game Date  -->
-        ## <?php print $game_status; ?>
-        <br><br>
-    <?php endif; ?>
-
-    <!-- Odds -->
-    <?php if ($game_status !== 'Final'): ?>
-        * **Favorite:** <?php print $game['favorite']; ?>
-        <br>
-        * **Over/Under:** <?php print $game['ou']; ?>
-        <br>
-        * **Weather:** <?php print $game['weather']; ?>
-        <br><br>
-    <?php endif; ?>
-
-    <!-- Highlights -->
-    <?php if (!empty($highlights)) {
-        print '## Highlights <br> *Courtesy of u/timnog* <br><br>';
+    // Highlights
+    if (!empty($highlights)) {
+        $post .= '## Highlights <br> *Courtesy of u/timnog* <br><br>';
         foreach ($highlights as $h) {
-            print '1. ' . $h . '<br>';
+            $post .= '1. ' . $h . "\n";
         }
-        print '<br><br>';
-    } ?>
+        $post .= "\n\n";
+    } 
 
 
-    Game Thread Notes |<br>
-    :--- |<br>
-    Discuss whatever you wish. You can trash talk, but keep it civil. |<br>
-    If you are experiencing problems with comment sorting in the official reddit app, we suggest using a third-party client instead ([Android](/r/Android/comments/f8tg1x/which_reddit_app_do_you_use_and_why_2020_edition/), [iOS](/r/applehelp/comments/a6pzha/best_reddit_app_for_ios/)). |<br>
-    Turning comment sort to 'new' will help you see the newest comments. |<br>
-    Try the [Tab Auto Refresh](https://mybrowseraddon.com/tab-auto-refresh.html) browser extension to auto-refresh this tab. |<br>
-    Use [reddit-stream.com](https://reddit-stream.com/) to get an autorefreshing version of this page. |<br>
+    $post .= 'Game Thread Notes |' . "\n";
+    $post .= ':--- |' . "\n";
+    $post .= 'Discuss whatever you wish. You can trash talk, but keep it civil. |' . "\n";
+    $post .= 'If you are experiencing problems with comment sorting in the official reddit app, we suggest using a third-party client instead ([Android](/r/Android/comments/f8tg1x/which_reddit_app_do_you_use_and_why_2020_edition/), [iOS](/r/applehelp/comments/a6pzha/best_reddit_app_for_ios/)). |' . "\n";
+    $post .= 'Turning comment sort to \'new\' will help you see the newest comments. |' . "\n";
+    $post .= 'Try the [Tab Auto Refresh](https://mybrowseraddon.com/tab-auto-refresh.html) browser extension to auto-refresh this tab. |' . "\n";
+    $post .= 'Use [reddit-stream.com](https://reddit-stream.com/) to get an autorefreshing version of this page. |' . "\n";
     
-    <pre><?php //var_dump($hls); ?></pre>
+    
 
-<?php } // endforeach; ?>
+} // endforeach;
+print '<h2>' . $post_title . '</h2>';
+print $post;
 
 
+/**
+ * Post the message to Reddit.
+ */
+function post_to_reddit($message) {
+    $file = file_get_contents('.env');
+    $params = json_decode($file, true);
 
-<?php
+}
 
+/**
+ * Get team subreddit from team name.
+ */
 function get_subreddit_link($team) {
     $subreddits = [
         'Ravens' => '/r/ravens',
