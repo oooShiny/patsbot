@@ -266,8 +266,8 @@ function post_to_reddit($post_title, $post) {
         'state' => TRUE,
     ];
     $sticky_response = do_curl('set_subreddit_sticky', 'POST', $sticky_data, $auth, TRUE);
-    
     var_dump($sticky_response);
+    print '<hr>';
 
     $sort_data = [
         'api_type' => 'json',
@@ -275,6 +275,7 @@ function post_to_reddit($post_title, $post) {
         'sort' => 'new',
     ];
     $sort_response = do_curl('set_suggested_sort', 'POST', $sort_data, $auth, TRUE);
+    var_dump($sort_response);
 }
 
 /**
