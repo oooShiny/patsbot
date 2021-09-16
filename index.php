@@ -188,7 +188,8 @@ foreach ($pats_games as $game) {
 
     // Highlights
     if (!empty($highlights)) {
-        $post .= '## Highlights <br> *Courtesy of u/timnog*' . "\n\n";
+        $post .= '## Highlights' . "\n";
+        $post .= '*Courtesy of u/timnog*' . "\n\n";
         foreach ($highlights as $h) {
             $post .= '1. ' . $h . "\n";
         }
