@@ -259,7 +259,9 @@ function post_to_reddit($post_title, $post) {
                 foreach ($v as $item)  {
                     if (strpos($item, 'reddit.com') !== FALSE) {
                         $url = parse_url($item);
+                        $path = explode('/', $url['path']);
                         var_dump($url);
+                        print 'Post ID: ' . $path[3];
                     }
                 }
             }
