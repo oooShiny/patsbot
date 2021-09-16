@@ -253,11 +253,9 @@ function post_to_reddit($post_title, $post) {
     $response = json_decode($response_raw, TRUE);
     curl_close($ch);
 
-    print '<pre>' . var_dump($response) . '</pre>';
-
     foreach ($response['jquery'] as $key => $value) {
         print 'Key: ' . $key . '<br>';
-        print 'Value: ' . $value . '<hr>';
+        print 'Value: <pre>' . print_r($value) . '</pre><hr>';
     }
 }
 
