@@ -188,7 +188,7 @@ foreach ($pats_games as $game) {
 
     // Highlights
     if (!empty($highlights)) {
-        $post .= '## Highlights <br> *Courtesy of u/timnog* <br><br>';
+        $post .= '## Highlights <br> *Courtesy of u/timnog*' . "\n\n";
         foreach ($highlights as $h) {
             $post .= '1. ' . $h . "\n";
         }
@@ -211,7 +211,7 @@ print '<h2>' . $post_title . '</h2>';
 
 print nl2br($post);
 
-post_to_reddit($post_title, $post);
+// post_to_reddit($post_title, $post);
 
 
 
