@@ -139,9 +139,9 @@ foreach ($pats_games as $game) {
     // Post Title
 
     $post_title .= $title;
-    $post_title .= $away_team . '(' . $game['away']['record'] . ')';  
+    $post_title .= $away_team . ' (' . $game['away']['record'] . ')';  
     $post_title .= ' @ '; 
-    $post_title .= $home_team . '(' . $game['home']['record'] . ')'; 
+    $post_title .= $home_team . ' (' . $game['home']['record'] . ')'; 
      if ($game_status != 'Final') {
         $post_title .= ' [kickoff ' . $game['time'] . ']';
     }
@@ -208,11 +208,13 @@ foreach ($pats_games as $game) {
     
 
 } // endforeach;
+
+// Display the post on the screen.
 print '<h2>' . $post_title . '</h2>';
 
 print nl2br($post);
 ?>
-
+<!-- Post this as a test to nflgifbot subreddit. -->
 <form>
     <input type="submit" value="Test Post">
     <input type="hidden" name="test_post">
@@ -222,6 +224,8 @@ print nl2br($post);
 if (isset($_REQUEST['test_post'])) {
     post_to_reddit($post_title, $post);
 }
+
+
 /**
  * Post the message to Reddit.
  */
@@ -249,8 +253,12 @@ function post_to_reddit($post_title, $post) {
     $response = json_decode($response_raw);
     curl_close($ch);
 
-    var_dump($response);
+    print '<pre>' . var_dump($response) . '</pre>';
 
+    foreach ($response['jquery'] as $key => $value) {
+        print 'Key: ' . $key . '<br>';
+        print 'Value: ' . $value . '<hr>';
+    }
 }
 
 /**
