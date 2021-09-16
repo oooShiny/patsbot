@@ -252,8 +252,7 @@ function post_to_reddit($post_title, $post) {
                         $url = parse_url($item);
                         $path = explode('/', $url['path']);
                         $post_id = $path[4];
-                        var_dump($path);
-                        print 'Post ID: ' . $post_id;
+                        print 'Post ID: ' . $post_id . '<hr>';
                     }
                 }
             }
