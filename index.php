@@ -263,7 +263,7 @@ function post_to_reddit($post_title, $post) {
     $sticky_data = [
         'api_type' => 'json',
         'id' => $post_id,
-        'state' => TRUE,
+        'state' => 'true',
     ];
     $auth = reddit_auth($reddit_info);
     $sticky_response = do_curl('set_subreddit_sticky', 'POST', $sticky_data, $auth, TRUE);
