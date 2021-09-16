@@ -208,7 +208,8 @@ foreach ($pats_games as $game) {
 
 } // endforeach;
 print '<h2>' . $post_title . '</h2>';
-print $post;
+
+print nl2br($post);
 
 
 /**
