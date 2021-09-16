@@ -237,7 +237,8 @@ function post_to_reddit($post_title, $post) {
         'title' => $post_title,
         'sr' => 'nflgifbot',
         'kind' => 'self',
-        'text' => $post
+        'text' => $post,
+        'sendreplies' => FALSE
     ];
 
     $response = do_curl('submit', 'POST', $post_data, $auth);
@@ -260,14 +261,18 @@ function post_to_reddit($post_title, $post) {
     }
 
     $sticky_data = [
-        'api_type' => 'json',
         'id' => $post_id,
         'state' => TRUE,
-        'num' => 1
     ];
     $sticky_response = do_curl('set_subreddit_sticky', 'POST', $sticky_data, $auth);
     
     var_dump($sticky_response);
+
+    $sort_data = [
+        'id' => $post_id,
+        'sort' => 'new',
+    ];
+    $sort_response = do_curl('set_suggested_sort', 'POST', $sort_data, $auth);
 }
 
 /**
