@@ -154,9 +154,15 @@ foreach ($pats_games as $game) {
     $post .= '#' . $season_week . "\n --- \n";
 
     // Teams
-    $post .= '# [' . $away_team . '](' . get_subreddit_link($away_team) . '#away) (' . $game['away']['record'] . ')';  
+    $post .= '# [' . $away_team . '](' . get_subreddit_link($away_team) . '#away)';
+    if ($game_status !== 'Final') {
+        $post .= ' (' . $game['away']['record'] . ')'; 
+    } 
     $post .= ' at ';
-    $post .= '[' . $home_team . '](' . get_subreddit_link($home_team) . '#home) (' . $game['home']['record'] . ')';  
+    $post .= '[' . $home_team . '](' . get_subreddit_link($home_team) . '#home)'; 
+    if ($game_status !== 'Final') {
+        $post .= ' (' . $game['home']['record'] . ')'; 
+    }  
     $post .= "\n";
 
     // Stadium & Location
