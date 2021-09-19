@@ -125,26 +125,30 @@ foreach ($pats_games as $game) {
     else {
         $season_week .= $season . ' Week ' . $week;
     }
+
     // Format title for pre/post game.
     if ($game_status == 'Final') {
-        $title = 'Official Post-Game Thread: ';
+        $post_title = 'Official Post-Game Thread: ';
+        if ($game['away']['score'] > $game['home']['score']) {
+            $post_title .= $away_team . ' defeat ' . $home_team;
+            $post_title .= ' ' . $game['away']['score'] . ' - ' . $game['home']['score'];
+        }
+        else {
+            $post_title .= $home_team . ' defeat ' . $away_team;
+            $post_title .= ' ' . $game['home']['score'] . ' - ' . $game['away']['score'];
+        }
+        
     }
     else {
-        $title = 'Official Game Day Thread: ';
+        $post_title = 'Official Game Day Thread: ';
+        $post_title .= $away_team . ' (' . $game['away']['record'] . ')';  
+        $post_title .= ' @ '; 
+        $post_title .= $home_team . ' (' . $game['home']['record'] . ')'; 
+        $post_title .= ' [kickoff ' . $game['time'] . ']';
     }
 
     // Build Post.
-    $post_title = '';
     $post = '';
-    // Post Title
-
-    $post_title .= $title;
-    $post_title .= $away_team . ' (' . $game['away']['record'] . ')';  
-    $post_title .= ' @ '; 
-    $post_title .= $home_team . ' (' . $game['home']['record'] . ')'; 
-     if ($game_status != 'Final') {
-        $post_title .= ' [kickoff ' . $game['time'] . ']';
-    }
 
     // Season & Week
     $post .= '#' . $season_week . "\n --- \n";
@@ -156,14 +160,14 @@ foreach ($pats_games as $game) {
     $post .= "\n";
 
     // Stadium & Location
-    $post .= $game['venue']['fullName'] . ' in ' . $game['venue']['address']['city'] . ',' . $game['venue']['address']['state'];
+    $post .= $game['venue']['fullName'] . ' in ' . $game['venue']['address']['city'] . ', ' . $game['venue']['address']['state'];
     $post .= "\n\n";
 
     if ($game_status == 'Final') {
         // Game Score
         $post .= '## Box Score';
         $post .= "\n\n";
-        $post .= ' | 1 | 2 | 3 | 4 | Final' . "\n";
+        $post .= 'Team | 1 | 2 | 3 | 4 | Final' . "\n";
         $post .= '---|---|---|---|---|---' . "\n";
         $post .= $away_team . ' | '; foreach ($game['away']['box'] as $q) { $post .= $q['value'] . ' | '; } $post .= $game['away']['score'];  
         $post .= "\n";
