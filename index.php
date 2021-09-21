@@ -252,41 +252,6 @@ function post_to_reddit($post_title, $post) {
     ];
 
     $response = do_curl('submit', 'POST', $post_data, $auth);
-
-    // Get new post_id from response.
-    $post_id = '';
-    foreach ($response['jquery'] as $key => $value) {
-        foreach ($value as $v) {
-            if (is_array($v)) {
-                foreach ($v as $item)  {
-                    if (strpos($item, 'reddit.com') !== FALSE) {
-                        $url = parse_url($item);
-                        $path = explode('/', $url['path']);
-                        $post_id = $path[4];
-                        print 'Post ID: ' . $post_id . '<hr>';
-                    }
-                }
-            }
-        }
-    }
-
-    $sticky_data = [
-        'api_type' => 'json',
-        'id' => $post_id,
-        'state' => 'true',
-    ];
-
-    $sticky_response = do_curl('set_subreddit_sticky', 'POST', $sticky_data, $auth);
-    var_dump($sticky_response);
-    print '<hr>';
-
-    $sort_data = [
-        'api_type' => 'json',
-        'id' => $post_id,
-        'sort' => 'new',
-    ];
-    $sort_response = do_curl('set_suggested_sort', 'POST', $sort_data, $auth);
-    var_dump($sort_response);
 }
 
 /**
