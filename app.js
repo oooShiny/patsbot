@@ -1,7 +1,7 @@
 require('dotenv').config();
 
 const Snoowrap = require('snoowrap');
-const { CommentStream } = require("snoostorm");
+const { CommentStream, SubmissionStream } = require("snoostorm");
 
 // Create a place to store the content.
 const store = require('data-store')({ path: process.cwd() + '/gifdata.json' });
@@ -23,10 +23,10 @@ const nflStreamOpts = {
 };
 
 // Create a Snoostorm CommentStream with the specified options
-const stream = new CommentStream(r, nflStreamOpts); 
+const commentStream = new CommentStream(r, nflStreamOpts); 
 
 // Look for Timnog gif link comments.
-stream.on('item', (comment) => {
+commentStream.on('item', (comment) => {
     // Get comments from gif posters that have a link in 'em.
 	if ((comment.author.name == 'arbrown83' || comment.author.name == 'timnog') && comment.body_html.includes('href')) {
         // If the link is from a gif site, save it.
@@ -51,5 +51,15 @@ stream.on('item', (comment) => {
             
             console.log(store)
         }
+    }
+});
+
+// Create a Snoostorm CommentStream with the specified options
+const postStream = new SubmissionStream(r, nflStreamOpts); 
+
+// Look for Game Thread posts from the other bot.
+postStream.on('item', (post) => {
+    if ((post.author.name == 'arbrown83' || post.author.name == 'patsbot') && post.title.includes('Official')) {
+        post.sticky();
     }
 });
