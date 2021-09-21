@@ -61,5 +61,6 @@ const postStream = new SubmissionStream(r, nflStreamOpts);
 postStream.on('item', (post) => {
     if ((post.author.name == 'arbrown83' || post.author.name == 'patsbot') && post.title.includes('Official')) {
         post.sticky();
+        post.setSuggestedSort('new');
     }
 });
