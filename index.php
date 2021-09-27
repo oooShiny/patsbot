@@ -125,45 +125,55 @@ foreach ($pats_games as $game) {
     else {
         $season_week .= $season . ' Week ' . $week;
     }
+
     // Format title for pre/post game.
     if ($game_status == 'Final') {
-        $title = 'Official Post-Game Thread: ';
+        $post_title = 'Official Post-Game Thread: ';
+        if ($game['away']['score'] > $game['home']['score']) {
+            $post_title .= $away_team . ' defeat ' . $home_team;
+            $post_title .= ' ' . $game['away']['score'] . ' - ' . $game['home']['score'];
+        }
+        else {
+            $post_title .= $home_team . ' defeat ' . $away_team;
+            $post_title .= ' ' . $game['home']['score'] . ' - ' . $game['away']['score'];
+        }
+        
     }
     else {
-        $title = 'Official Game Day Thread: ';
+        $post_title = 'Official Game Day Thread: ';
+        $post_title .= $away_team . ' (' . $game['away']['record'] . ')';  
+        $post_title .= ' @ '; 
+        $post_title .= $home_team . ' (' . $game['home']['record'] . ')'; 
+        $post_title .= ' [kickoff ' . $game['time'] . ']';
     }
 
     // Build Post.
-    $post_title = '';
     $post = '';
-    // Post Title
-
-    $post_title .= $title;
-    $post_title .= $away_team . ' (' . $game['away']['record'] . ')';  
-    $post_title .= ' @ '; 
-    $post_title .= $home_team . ' (' . $game['home']['record'] . ')'; 
-     if ($game_status != 'Final') {
-        $post_title .= ' [kickoff ' . $game['time'] . ']';
-    }
 
     // Season & Week
     $post .= '#' . $season_week . "\n --- \n";
 
     // Teams
-    $post .= '# [' . $away_team . '](' . get_subreddit_link($away_team) . '#away) (' . $game['away']['record'] . ')';  
+    $post .= '# [' . $away_team . '](' . get_subreddit_link($away_team) . '#away)';
+    if ($game_status !== 'Final') {
+        $post .= ' (' . $game['away']['record'] . ')'; 
+    } 
     $post .= ' at ';
-    $post .= '[' . $home_team . '](' . get_subreddit_link($home_team) . '#home) (' . $game['home']['record'] . ')';  
+    $post .= '[' . $home_team . '](' . get_subreddit_link($home_team) . '#home)'; 
+    if ($game_status !== 'Final') {
+        $post .= ' (' . $game['home']['record'] . ')'; 
+    }  
     $post .= "\n";
 
     // Stadium & Location
-    $post .= $game['venue']['fullName'] . ' in ' . $game['venue']['address']['city'] . ',' . $game['venue']['address']['state'];
+    $post .= $game['venue']['fullName'] . ' in ' . $game['venue']['address']['city'] . ', ' . $game['venue']['address']['state'];
     $post .= "\n\n";
 
     if ($game_status == 'Final') {
         // Game Score
         $post .= '## Box Score';
         $post .= "\n\n";
-        $post .= ' | 1 | 2 | 3 | 4 | Final' . "\n";
+        $post .= 'Team | 1 | 2 | 3 | 4 | Final' . "\n";
         $post .= '---|---|---|---|---|---' . "\n";
         $post .= $away_team . ' | '; foreach ($game['away']['box'] as $q) { $post .= $q['value'] . ' | '; } $post .= $game['away']['score'];  
         $post .= "\n";
@@ -197,13 +207,13 @@ foreach ($pats_games as $game) {
     } 
 
 
-    $post .= 'Game Thread Notes |' . "\n";
-    $post .= ':--- |' . "\n";
-    $post .= 'Discuss whatever you wish. You can trash talk, but keep it civil. |' . "\n";
-    $post .= 'If you are experiencing problems with comment sorting in the official reddit app, we suggest using a third-party client instead ([Android](/r/Android/comments/f8tg1x/which_reddit_app_do_you_use_and_why_2020_edition/), [iOS](/r/applehelp/comments/a6pzha/best_reddit_app_for_ios/)). |' . "\n";
-    $post .= 'Turning comment sort to \'new\' will help you see the newest comments. |' . "\n";
-    $post .= 'Try the [Tab Auto Refresh](https://mybrowseraddon.com/tab-auto-refresh.html) browser extension to auto-refresh this tab. |' . "\n";
-    $post .= 'Use [reddit-stream.com](https://reddit-stream.com/) to get an autorefreshing version of this page. |' . "\n";
+    $post .= '---' . "\n";
+    $post .= '## Game Thread Notes' . "\n";
+    $post .= '* Discuss whatever you wish. You can trash talk, but keep it civil.' . "\n";
+    $post .= '* If you are experiencing problems with comment sorting in the official reddit app, we suggest using a third-party client instead ([Android](/r/Android/comments/f8tg1x/which_reddit_app_do_you_use_and_why_2020_edition/), [iOS](/r/applehelp/comments/a6pzha/best_reddit_app_for_ios/)).' . "\n";
+    $post .= '* Turning comment sort to \'new\' will help you see the newest comments.' . "\n";
+    $post .= '* Try the [Tab Auto Refresh](https://mybrowseraddon.com/tab-auto-refresh.html) browser extension to auto-refresh this tab.' . "\n";
+    $post .= '* Use [reddit-stream.com](https://reddit-stream.com/) to get an autorefreshing version of this page.' . "\n";
     
     
 
@@ -242,41 +252,6 @@ function post_to_reddit($post_title, $post) {
     ];
 
     $response = do_curl('submit', 'POST', $post_data, $auth);
-
-    // Get new post_id from response.
-    $post_id = '';
-    foreach ($response['jquery'] as $key => $value) {
-        foreach ($value as $v) {
-            if (is_array($v)) {
-                foreach ($v as $item)  {
-                    if (strpos($item, 'reddit.com') !== FALSE) {
-                        $url = parse_url($item);
-                        $path = explode('/', $url['path']);
-                        $post_id = $path[4];
-                        print 'Post ID: ' . $post_id . '<hr>';
-                    }
-                }
-            }
-        }
-    }
-
-    $sticky_data = [
-        'api_type' => 'json',
-        'id' => $post_id,
-        'state' => 'true',
-    ];
-
-    $sticky_response = do_curl('set_subreddit_sticky', 'POST', $sticky_data, $auth);
-    var_dump($sticky_response);
-    print '<hr>';
-
-    $sort_data = [
-        'api_type' => 'json',
-        'id' => $post_id,
-        'sort' => 'new',
-    ];
-    $sort_response = do_curl('set_suggested_sort', 'POST', $sort_data, $auth);
-    var_dump($sort_response);
 }
 
 /**
