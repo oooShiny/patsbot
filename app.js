@@ -1,4 +1,4 @@
-require('dotenv').config();
+require('dotenv').config({ path: '../.env'});
 
 const Snoowrap = require('snoowrap');
 const { CommentStream } = require("snoostorm");
