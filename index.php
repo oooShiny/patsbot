@@ -284,7 +284,7 @@ function reddit_auth($reddit_info) {
  * Get Reddit params from the .env file.
  */ 
 function get_params() {
-    $file = file_get_contents('.env');
+    $file = file_get_contents('../.env');
     $array = explode("\n", $file);
     $params = [];
     foreach ($array as $param) {
