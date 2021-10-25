@@ -188,7 +188,7 @@ foreach ($pats_games as $game) {
     }
 
     // Odds
-    if ($game_status !== 'Final') { 
+    if (strpos($game_status, 'Final') !== TRUE) { 
         $post .= '* **Favorite:** ' . $game['favorite'];
         $post .= "\n";
         $post .= '* **Over/Under:** ' . $game['ou'];
