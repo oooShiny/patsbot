@@ -270,7 +270,7 @@ function time_to_post($game, $post, $post_title) {
         }
         else {
             post_to_reddit($post_title, $post);
-            $old_posts[$today] = $post_title;   var_dump($old_posts);
+            $old_posts[$today] = $post_title;
             $data = json_encode($old_posts, JSON_PRETTY_PRINT);
             file_put_contents('postdata.json', $data);
         }   
@@ -282,7 +282,7 @@ function time_to_post($game, $post, $post_title) {
         }
         else {
             post_to_reddit($post_title, $post);
-            $old_posts[$today] = $post_title;   var_dump($old_posts);
+            $old_posts[$today] = $post_title;
             $data = json_encode($old_posts, JSON_PRETTY_PRINT);
             file_put_contents('postdata.json', $data);
         }  
