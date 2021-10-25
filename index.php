@@ -230,6 +230,8 @@ foreach ($pats_games as $game) {
 print '<h2>' . $post_title . '</h2>';
 
 print nl2br($post);
+
+time_to_post($game, $post, $post_title);
 ?>
 <!-- Post this as a test to nflgifbot subreddit. -->
 <form>
