@@ -29,6 +29,7 @@ if (!empty($args['dates']) || !empty($args['seasontype']) || !empty($args['week'
         $espn_url .= $name . '=' . $value . '&';
     }
 }
+var_dump($espn_url);
 $json = file_get_contents($espn_url);
 $games = json_decode($json, true);
 $pats_games = [];
@@ -107,7 +108,7 @@ $hl_array = json_decode($file, true);
 $highlights = [];
 foreach ($hl_array as $date => $hls) {
     if ($date == $today) {
-        // asort($hls);
+        asort($hls, SORT_NUMERIC);
         foreach ($hls as $hl) {
             $highlights[] = preg_replace('#^\d+#', '', $hl);
         }
@@ -174,6 +175,7 @@ foreach ($pats_games as $game) {
         // Game Score
         $post .= '## Box Score';
         $post .= "\n\n";
+        if (count($game['away']['box']))
         $post .= 'Team | 1 | 2 | 3 | 4 | Final' . "\n";
         $post .= '---|---|---|---|---|---' . "\n";
         $post .= $away_team . ' | '; foreach ($game['away']['box'] as $q) { $post .= $q['value'] . ' | '; } $post .= $game['away']['score'];  
@@ -236,6 +238,16 @@ if (isset($_REQUEST['test_post'])) {
     post_to_reddit($post_title, $post);
 }
 
+function time_to_post($game) {
+    $current_time = time();
+    $game_time = strtotime($game['time']);
+    $post_time = $game_time - 3600;
+    $diff = $current_time - $post_time;
+    // If the diff is less than 60 seconds apart.
+    if (0 > $diff && $diff > -60) {
+        post_to_reddit($post_title, $post);
+    }
+}
 
 /**
  * Post the message to Reddit.
