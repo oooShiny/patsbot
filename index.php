@@ -157,12 +157,12 @@ foreach ($pats_games as $game) {
 
     // Teams
     $post .= '# [' . $away_team . '](' . get_subreddit_link($away_team) . '#away)';
-    if ($game_status !== 'Final') {
+    if (strpos($game_status, 'Final') === FALSE) {
         $post .= ' (' . $game['away']['record'] . ')'; 
     } 
     $post .= ' at ';
     $post .= '[' . $home_team . '](' . get_subreddit_link($home_team) . '#home)'; 
-    if ($game_status !== 'Final') {
+    if (strpos($game_status, 'Final') === FALSE) {
         $post .= ' (' . $game['home']['record'] . ')'; 
     }  
     $post .= "\n";
@@ -242,14 +242,50 @@ if (isset($_REQUEST['test_post'])) {
     post_to_reddit($post_title, $post);
 }
 
-function time_to_post($game) {
+/**
+ * Check if it's time to post the thread to Reddit.
+ * This runs on cron.
+ */
+function time_to_post($game, $post, $post_title) {
+
+    // Get the postdata file to see if we've already posted this.
+    $today = date('Ymd');
+    $file = file_get_contents('postdata.json');
+    $old_posts = json_decode($file, true);
+
+    $final = strpos($game['status']['type']['detail'], 'Final');
+
     $current_time = time();
     $game_time = strtotime($game['time']);
-    $post_time = $game_time - 3600;
+    $post_time = $game_time - 3600; // Pregame post goes up an hour before game time.
     $diff = $current_time - $post_time;
-    // If the diff is less than 60 seconds apart.
-    if (0 > $diff && $diff > -60) {
-        post_to_reddit($post_title, $post);
+    
+    // If the game isn't finished and diff is less than 60 seconds apart,
+    // then this game hasn't started yet.
+    if (($final === FALSE) && (0 > $diff && $diff > -60)) {
+        if (array_key_exists($today, $old_posts)) {
+            // We already posted, do nothing.
+        }
+        else {
+            post_to_reddit($post_title, $post);
+            $old_posts[$today] = $post_title;
+            $f = fopen('postdata.json', 'w');
+            fwrite($f, json_encode($old_posts));
+            fclose($f);
+        }   
+    }
+    // If the game is over, post if we haven't posted yet.
+    elseif ($final !== FALSE) {
+        if (array_key_exists($today, $old_posts)) {
+            // We already posted, do nothing.
+        }
+        else {
+            post_to_reddit($post_title, $post);
+            $old_posts[$today] = $post_title;
+            $f = fopen('postdata.json', 'w');
+            fwrite($f, json_encode($old_posts));
+            fclose($f);
+        }  
     }
 }
 
