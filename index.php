@@ -58,6 +58,7 @@ foreach ($games['events'] as $game) {
     }
     $weather = $temp . $game['weather']['displayValue'];
     $time = explode(' - ', $game['status']['type']['shortDetail']);
+    
     // Get the general game details.
     $thisgame[$game['id']] = [
         'home' => [],
@@ -71,7 +72,7 @@ foreach ($games['events'] as $game) {
         'time' => $time[1],
     ];
     
-    if ($game['status']['type']['detail'] == 'Final') {
+    if (strpos($game['status']['type']['detail'], 'Final') !== FALSE) {
         $thisgame[$game['id']]['leaders'] = $game['leaders'];
     }
 
@@ -127,7 +128,7 @@ foreach ($pats_games as $game) {
     }
 
     // Format title for pre/post game.
-    if ($game_status == 'Final') {
+    if (strpos($game_status, 'Final') !== FALSE) {
         $post_title = 'Official Post-Game Thread: ';
         if ($game['away']['score'] > $game['home']['score']) {
             $post_title .= $away_team . ' defeat ' . $home_team;
