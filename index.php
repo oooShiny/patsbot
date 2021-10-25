@@ -170,7 +170,7 @@ foreach ($pats_games as $game) {
     $post .= $game['venue']['fullName'] . ' in ' . $game['venue']['address']['city'] . ', ' . $game['venue']['address']['state'];
     $post .= "\n\n";
 
-    if ($game_status == 'Final') {
+    if (strpos($game_status, 'Final') !== FALSE) {
         // Game Score
         $post .= '## Box Score';
         $post .= "\n\n";
