@@ -171,12 +171,16 @@ foreach ($pats_games as $game) {
     $post .= $game['venue']['fullName'] . ' in ' . $game['venue']['address']['city'] . ', ' . $game['venue']['address']['state'];
     $post .= "\n\n";
 
+    // Box Score
     if (strpos($game_status, 'Final') !== FALSE) {
-        // Game Score
         $post .= '## Box Score';
         $post .= "\n\n";
-        if (count($game['away']['box']))
-        $post .= 'Team | 1 | 2 | 3 | 4 | Final' . "\n";
+        if (count($game['away']['box']) > 5) {
+            $post .= 'Team | 1 | 2 | 3 | 4 | OT | Final' . "\n";
+        }
+        else {
+            $post .= 'Team | 1 | 2 | 3 | 4 | Final' . "\n";
+        }
         $post .= '---|---|---|---|---|---' . "\n";
         $post .= $away_team . ' | '; foreach ($game['away']['box'] as $q) { $post .= $q['value'] . ' | '; } $post .= $game['away']['score'];  
         $post .= "\n";
