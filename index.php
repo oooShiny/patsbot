@@ -172,11 +172,10 @@ foreach ($pats_games as $game) {
     $post .= "\n\n";
 
     // Box Score
-    var_dump(count($game['away']['box']));
     if (strpos($game_status, 'Final') !== FALSE) {
         $post .= '## Box Score';
         $post .= "\n\n";
-        if (count($game['away']['box']) > 5) {
+        if (count($game['away']['box']) > 4) {
             $post .= 'Team | 1 | 2 | 3 | 4 | OT | Final' . "\n";
         }
         else {
