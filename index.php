@@ -172,6 +172,7 @@ foreach ($pats_games as $game) {
     $post .= "\n\n";
 
     // Box Score
+    var_dump(count($game['away']['box']));
     if (strpos($game_status, 'Final') !== FALSE) {
         $post .= '## Box Score';
         $post .= "\n\n";
