@@ -271,9 +271,8 @@ function time_to_post($game, $post, $post_title) {
         else {
             post_to_reddit($post_title, $post);
             $old_posts[$today] = $post_title;   var_dump($old_posts);
-            $f = fopen('postdata.json', 'w');
-            fwrite($f, json_encode($old_posts));
-            fclose($f);
+            $data = json_encode($old_posts, JSON_PRETTY_PRINT);
+            file_put_contents('postdata.json', $data);
         }   
     }
     // If the game is over, post if we haven't posted yet.
@@ -284,9 +283,8 @@ function time_to_post($game, $post, $post_title) {
         else {
             post_to_reddit($post_title, $post);
             $old_posts[$today] = $post_title;   var_dump($old_posts);
-            $f = fopen('postdata.json', 'w');
-            fwrite($f, json_encode($old_posts));
-            fclose($f);
+            $data = json_encode($old_posts, JSON_PRETTY_PRINT);
+            file_put_contents('postdata.json', $data);
         }  
     }
 }
