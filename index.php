@@ -269,6 +269,7 @@ function time_to_post($game, $post, $post_title) {
             // We already posted, do nothing.
         }
         else {
+            $post .= 'Now: ' . $current_time . "\n" . 'Gametime: ' . $game_time . "\n" . 'Post time: ' . $post_time;
             post_to_reddit($post_title, $post);
             $old_posts[$today] = $post_title;
             $data = json_encode($old_posts, JSON_PRETTY_PRINT);
@@ -281,6 +282,7 @@ function time_to_post($game, $post, $post_title) {
             // We already posted, do nothing.
         }
         else {
+            $post .= 'Now: ' . $current_time . "\n" . 'Gametime: ' . $game_time . "\n" . 'Post time: ' . $post_time;
             post_to_reddit($post_title, $post);
             $old_posts[$today] = $post_title;
             $data = json_encode($old_posts, JSON_PRETTY_PRINT);
