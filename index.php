@@ -71,6 +71,7 @@ foreach ($games['events'] as $game) {
         'type' => $game_type,
         'weather' => $weather,
         'time' => $time[1],
+        'date' => $game['date'],
     ];
     
     if (strpos($game['status']['type']['detail'], 'Final') !== FALSE) {
@@ -224,8 +225,8 @@ foreach ($pats_games as $game) {
 
     // debugging post timing.
     date_default_timezone_set('America/New_York');
-    $post .= '* Game Time:  ' . $game['time'] . "\n";
-    $post .= '* Game Time:  ' . strtotime($game['time']) . "\n";
+    $post .= '* Game Time:  ' . $game['date'] . "\n";
+    $post .= '* Game Time:  ' . strtotime($game['date']) . "\n";
 
     // $date = new DateTimeImmutable($game['time']);
     
