@@ -224,10 +224,11 @@ foreach ($pats_games as $game) {
 
     // debugging post timing.
     date_default_timezone_set('America/New_York');
+    $post .= '* Game Time:  ' . $game['time'] . "\n";
     $post .= '* Game Time:  ' . strtotime($game['time']) . "\n";
 
     // $date = new DateTimeImmutable($game['time']);
-    // $post .= '* Game Time:  ' . $date . "\n";
+    
 
 } // endforeach;
 
