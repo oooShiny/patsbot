@@ -221,8 +221,13 @@ foreach ($pats_games as $game) {
     $post .= '* Turning comment sort to \'new\' will help you see the newest comments.' . "\n";
     $post .= '* Try the [Tab Auto Refresh](https://mybrowseraddon.com/tab-auto-refresh.html) browser extension to auto-refresh this tab.' . "\n";
     $post .= '* Use [reddit-stream.com](https://reddit-stream.com/) to get an autorefreshing version of this page.' . "\n";
-    
-    
+
+    // debugging post timing.
+    date_default_timezone_set('America/New_York');
+    $post .= '* Game Time:  ' . strtotime($game['time']) . "\n";
+
+    $date = new DateTimeImmutable($game['time']);
+    $post .= '* Game Time:  ' . $date . "\n";
 
 } // endforeach;
 
