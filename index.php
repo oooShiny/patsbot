@@ -222,13 +222,6 @@ foreach ($pats_games as $game) {
     $post .= '* Turning comment sort to \'new\' will help you see the newest comments.' . "\n";
     $post .= '* Try the [Tab Auto Refresh](https://mybrowseraddon.com/tab-auto-refresh.html) browser extension to auto-refresh this tab.' . "\n";
     $post .= '* Use [reddit-stream.com](https://reddit-stream.com/) to get an autorefreshing version of this page.' . "\n";
-
-    // debugging post timing.
-    date_default_timezone_set('America/New_York');
-    $post .= '* Game Time:  ' . $game['date'] . "\n";
-    $post .= '* Game Time:  ' . strtotime($game['date']) . "\n";
-
-    // $date = new DateTimeImmutable($game['time']);
     
 
 } // endforeach;
@@ -264,8 +257,9 @@ function time_to_post($game, $post, $post_title) {
 
     $final = strpos($game['status']['type']['detail'], 'Final');
 
+    date_default_timezone_set('America/New_York');
     $current_time = time();
-    $game_time = strtotime($game['time']);
+    $game_time = strtotime($game['date']);
     $post_time = $game_time - 3600; // Pregame post goes up an hour before game time.
     $diff = $current_time - $post_time;
     
