@@ -251,7 +251,6 @@ if (isset($_REQUEST['test_post'])) {
 function time_to_post($game, $post, $post_title) {
 
     // Get the postdata file to see if we've already posted this.
-    $today = date('Ymd');
     $file = file_get_contents('postdata.json');
     $old_posts = json_decode($file, true);
 
@@ -266,26 +265,26 @@ function time_to_post($game, $post, $post_title) {
     // If the game isn't finished and diff is less than 60 seconds apart,
     // then this game hasn't started yet.
     if (($final === FALSE) && (0 > $diff && $diff > -60)) {
-        if (array_key_exists($today . '-pre', $old_posts)) {
+        if (array_key_exists($game_time . '-pre', $old_posts)) {
             // We already posted, do nothing.
         }
         else {
             $post .= 'Now: ' . $current_time . "\n" . 'Gametime: ' . $game_time . "\n" . 'Post time: ' . $post_time;
             post_to_reddit($post_title, $post);
-            $old_posts[$today . '-pre'] = $post_title;
+            $old_posts[$game_time . '-pre'] = $post_title;
             $data = json_encode($old_posts, JSON_PRETTY_PRINT);
             file_put_contents('postdata.json', $data);
         }   
     }
     // If the game is over, post if we haven't posted yet.
     elseif ($final !== FALSE) {
-        if (array_key_exists($today . '-post', $old_posts)) {
+        if (array_key_exists($game_time . '-post', $old_posts)) {
             // We already posted, do nothing.
         }
         else {
             $post .= 'Now: ' . $current_time . "\n" . 'Gametime: ' . $game_time . "\n" . 'Post time: ' . $post_time;
             post_to_reddit($post_title, $post);
-            $old_posts[$today . '-post'] = $post_title;
+            $old_posts[$game_time . '-post'] = $post_title;
             $data = json_encode($old_posts, JSON_PRETTY_PRINT);
             file_put_contents('postdata.json', $data);
         }  
