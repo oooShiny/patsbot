@@ -300,7 +300,7 @@ function post_to_reddit($post_title, $post) {
 
     $post_data = [
         'title' => $post_title,
-        'sr' => 'nflgifbot',
+        'sr' => 'patriots',
         'kind' => 'self',
         'text' => $post,
         'sendreplies' => 'false'
