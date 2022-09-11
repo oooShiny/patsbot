@@ -220,8 +220,6 @@ foreach ($pats_games as $game) {
     $post .= '* Discuss whatever you wish. You can trash talk, but keep it civil.' . "\n";
     $post .= '* If you are experiencing problems with comment sorting in the official reddit app, we suggest using a third-party client instead ([Android](/r/Android/comments/f8tg1x/which_reddit_app_do_you_use_and_why_2020_edition/), [iOS](/r/applehelp/comments/a6pzha/best_reddit_app_for_ios/)).' . "\n";
     $post .= '* Turning comment sort to \'new\' will help you see the newest comments.' . "\n";
-    $post .= '* Try the [Tab Auto Refresh](https://mybrowseraddon.com/tab-auto-refresh.html) browser extension to auto-refresh this tab.' . "\n";
-    $post .= '* Use [reddit-stream.com](https://reddit-stream.com/) to get an autorefreshing version of this page.' . "\n";
     
 
 } // endforeach;
