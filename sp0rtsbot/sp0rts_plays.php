@@ -7,7 +7,8 @@ use SleekDB\Store;
 use GuzzleHttp\Client;
 
 // Change for testing locally.
-$server = 'sports-community.ddev.site';
+//$server = 'sports-community.ddev.site';
+$server = 'sp0rts.fans';
 
 // Get a list of all games currently happening today.
 //$live_games = json_decode(file_get_contents('https://sp0rts.fans/api/live-games'), TRUE);
@@ -23,7 +24,12 @@ $databaseDirectory = __DIR__ . '/lastPlayDB';
 $db = new Store('plays', $databaseDirectory);
 
 // Get environment variables from .env file.
-$dotenv = Dotenv\Dotenv::createImmutable(__DIR__);
+if ($server == 'sp0rts.fans') {
+  $dotenv = Dotenv\Dotenv::createImmutable('/var/www/');
+}
+else {
+  $dotenv = Dotenv\Dotenv::createImmutable(__DIR__);
+}
 $dotenv->safeLoad();
 // Pusher setup.
 $pusher = new Pusher\Pusher(
@@ -85,9 +91,11 @@ function send_comment($latest_play, $pusher, $nid, $game) {
     'play_t1_logo' => $game['field_team_1_logo'],
     'play_t2_logo' => $game['field_team_2_logo'],
     'play_score' => $latest_play['homeScore'] . " - " . $latest_play['awayScore'],
-    'play_down' => ordinal($latest_play['start']['down']),
-    'play_distance' => $latest_play['start']['distance']
   ];
+  if ($latest_play['start']['down'] !== 0) {
+    $comment['play_down'] = ordinal($latest_play['start']['down']);
+    $comment['play_distance'] = $latest_play['start']['distance'];
+  }
   $event = 'new_play_' . $nid;
   $pusher->trigger(
     'sp0rts-comments',
@@ -98,7 +106,7 @@ function send_comment($latest_play, $pusher, $nid, $game) {
 }
 
 /**
- * Post the current play as a Drupal comment so it is saved in the database.
+ * Post the current play as a Drupal comment, so it is saved in the database.
  */
 function post_drupal_comment($latest_play, $game, $server) {
   $down = ordinal($latest_play['start']['down']);
@@ -110,13 +118,15 @@ function post_drupal_comment($latest_play, $game, $server) {
 </p>
 <div class='flex gap-10 justify-center'>
     <img class='h-20' src='{$game['field_team_1_logo']}'>
-    <span class='play-score text-5xl'>{$latest_play['homeScore']} - {$latest_play['awayScore']}</span>
+    <span class='leading-relaxed text-5xl'>{$latest_play['homeScore']} - {$latest_play['awayScore']}</span>
     <img class='h-20' src='{$game['field_team_2_logo']}'>
 </div>
-<p>
-    <span class='play-down'>{$down}</span> and <span class='play-distance'>{$latest_play['start']['distance']}</span>
-</p>
 EOT;
+  if ($down > 0) {
+    $play_body .= "<p>
+    <span class='play-down'>{$down}</span> and <span class='play-distance'>{$latest_play['start']['distance']}</span>
+</p>";
+  }
 
   $play_comment = [
     "data" => [
