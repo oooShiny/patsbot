@@ -112,9 +112,9 @@ function send_comment($latest_play, $pusher, $nid, $game) {
 function post_drupal_comment($latest_play, $game, $server) {
 
   $down = ordinal($latest_play['start']['down']);
-
+  $scoring_play = $latest_play['scoringPlay'] == 1 ? 'true' : 'false';
   $play_body = <<<EOT
-<div class="text-center bg-sky-800 scored-{$latest_play['scoringPlay']} type-{$latest_play['type']['id']}">
+<div class="text-center bg-sky-800 scored-{$scoring_play} type-{$latest_play['type']['id']}">
 <h4>{$latest_play['text']}</h4>
 <p class="py-2">
   <span class='play-quarter border p-1'>Q{$latest_play['period']['number']}</span>
