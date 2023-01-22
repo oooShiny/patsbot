@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module type="WEB_MODULE" version="4">
+  <component name="NewModuleRootManager">
+    <content url="file://$MODULE_DIR$">
+      <sourceFolder url="file://$MODULE_DIR$/spec" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/tests" isTestSource="true" />
+      <excludeFolder url="file://$MODULE_DIR$/sp0rtsbot/vendor/pusher/pusher-php-server" />
+      <excludeFolder url="file://$MODULE_DIR$/sp0rtsbot/vendor/rakibtg/sleekdb" />
+      <excludeFolder url="file://$MODULE_DIR$/sp0rtsbot/vendor/paragonie/sodium_compat" />
+      <excludeFolder url="file://$MODULE_DIR$/sp0rtsbot/vendor/paragonie/random_compat" />
+      <excludeFolder url="file://$MODULE_DIR$/sp0rtsbot/vendor/guzzlehttp/promises" />
+      <excludeFolder url="file://$MODULE_DIR$/sp0rtsbot/vendor/graham-campbell/result-type" />
+      <excludeFolder url="file://$MODULE_DIR$/sp0rtsbot/vendor/guzzlehttp/guzzle" />
+      <excludeFolder url="file://$MODULE_DIR$/sp0rtsbot/vendor/guzzlehttp/psr7" />
+      <excludeFolder url="file://$MODULE_DIR$/sp0rtsbot/vendor/ralouphie/getallheaders" />
+      <excludeFolder url="file://$MODULE_DIR$/sp0rtsbot/vendor/psr/http-client" />
+      <excludeFolder url="file://$MODULE_DIR$/sp0rtsbot/vendor/symfony/polyfill-ctype" />
+      <excludeFolder url="file://$MODULE_DIR$/sp0rtsbot/vendor/psr/log" />
+      <excludeFolder url="file://$MODULE_DIR$/sp0rtsbot/vendor/symfony/polyfill-php80" />
+      <excludeFolder url="file://$MODULE_DIR$/sp0rtsbot/vendor/psr/http-message" />
+      <excludeFolder url="file://$MODULE_DIR$/sp0rtsbot/vendor/symfony/polyfill-mbstring" />
+      <excludeFolder url="file://$MODULE_DIR$/sp0rtsbot/vendor/psr/http-factory" />
+      <excludeFolder url="file://$MODULE_DIR$/sp0rtsbot/vendor/vlucas/phpdotenv" />
+      <excludeFolder url="file://$MODULE_DIR$/sp0rtsbot/vendor/symfony/deprecation-contracts" />
+      <excludeFolder url="file://$MODULE_DIR$/sp0rtsbot/vendor/composer" />
+      <excludeFolder url="file://$MODULE_DIR$/sp0rtsbot/vendor/phpoption/phpoption" />
+    </content>
+    <orderEntry type="inheritedJdk" />
+    <orderEntry type="sourceFolder" forTests="false" />
+  </component>
+</module>
