@@ -84,6 +84,7 @@ while ($count !== 6) {
  */
 function send_comment($latest_play, $pusher, $nid, $game) {
   $comment = [
+    'play_type' => $latest_play['type']['id'],
     'play_scored' => $latest_play['scoringPlay'],
     'play_title' => $latest_play['text'],
     'play_quarter' => $latest_play['period']['number'],
@@ -109,8 +110,11 @@ function send_comment($latest_play, $pusher, $nid, $game) {
  * Post the current play as a Drupal comment, so it is saved in the database.
  */
 function post_drupal_comment($latest_play, $game, $server) {
+
   $down = ordinal($latest_play['start']['down']);
+
   $play_body = <<<EOT
+<div class="text-center bg-sky-800 scored-{$latest_play['scoringPlay']} type-{$latest_play['type']['id']}">
 <h4>{$latest_play['text']}</h4>
 <p class="py-2">
   <span class='play-quarter border p-1'>Q{$latest_play['period']['number']}</span>
@@ -127,6 +131,8 @@ EOT;
     <span class='play-down'>{$down}</span> and <span class='play-distance'>{$latest_play['start']['distance']}</span>
 </p>";
   }
+  $play_body .= "</div>";
+
 
   $play_comment = [
     "data" => [
