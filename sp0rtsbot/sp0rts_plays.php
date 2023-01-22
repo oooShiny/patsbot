@@ -92,6 +92,7 @@ function send_comment($latest_play, $pusher, $nid, $game) {
     'play_t1_logo' => $game['field_team_1_logo'],
     'play_t2_logo' => $game['field_team_2_logo'],
     'play_score' => $latest_play['homeScore'] . " - " . $latest_play['awayScore'],
+    'play_timestamp' => strtotime($latest_play['wallclock']),
   ];
   if ($latest_play['start']['down'] !== 0) {
     $comment['play_down'] = ordinal($latest_play['start']['down']);
@@ -113,8 +114,9 @@ function post_drupal_comment($latest_play, $game, $server) {
 
   $down = ordinal($latest_play['start']['down']);
   $scoring_play = $latest_play['scoringPlay'] == 1 ? 'true' : 'false';
+  $time = strtotime($latest_play['wallclock']);
   $play_body = <<<EOT
-<div class="text-center bg-sky-800 scored-{$scoring_play} type-{$latest_play['type']['id']}">
+<div class="text-center bg-sky-800 scored-{$scoring_play} type-{$latest_play['type']['id']} time-{$time}">
 <h4>{$latest_play['text']}</h4>
 <p class="py-2">
   <span class='play-quarter border p-1'>Q{$latest_play['period']['number']}</span>
