@@ -122,7 +122,7 @@ function post_drupal_comment($latest_play, $game, $server) {
   <span class='play-quarter border p-1'>Q{$latest_play['period']['number']}</span>
   <span class='play-time border p-1'>{$latest_play['clock']['displayValue']}</span>
 </p>
-<div class='flex gap-10 justify-center'>
+<div class='flex gap-5 md:gap-10 justify-center'>
     <img class='h-20' src='{$game['field_team_1_logo']}'>
     <span class='pt-0 leading-relaxed text-5xl'>{$latest_play['homeScore']} - {$latest_play['awayScore']}</span>
     <img class='h-20' src='{$game['field_team_2_logo']}'>
