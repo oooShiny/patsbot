@@ -116,7 +116,7 @@ function post_drupal_comment($latest_play, $game, $server) {
   $scoring_play = $latest_play['scoringPlay'] == 1 ? 'true' : 'false';
   $time = strtotime($latest_play['wallclock']);
   $play_body = <<<EOT
-<div class="text-center bg-sky-800 scored-{$scoring_play} type-{$latest_play['type']['id']} time-{$time}">
+<div class="text-center bg-sky-800 scored-{$scoring_play} type-{$latest_play['type']['id']}" data-timestamp="{$time}">
 <h4>{$latest_play['text']}</h4>
 <p class="py-2">
   <span class='play-quarter border p-1'>Q{$latest_play['period']['number']}</span>
