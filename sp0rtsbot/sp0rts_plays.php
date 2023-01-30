@@ -84,6 +84,7 @@ while ($count !== 6) {
  */
 function send_comment($latest_play, $pusher, $nid, $game) {
   $comment = [
+    'play_id' => $latest_play['id'],
     'play_type' => $latest_play['type']['id'],
     'play_scored' => $latest_play['scoringPlay'],
     'play_title' => $latest_play['text'],
